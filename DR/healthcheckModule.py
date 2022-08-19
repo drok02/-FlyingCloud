@@ -1,13 +1,16 @@
 import json
 import re
-from urllib import request
+from requests.exceptions import Timeout
+import requests
+from backupimgSend import AccountView
+
 
 
 ip = ["google.com"]
 
 p = re.compile('[=]\s(\d+)[m][s]')
 
-address = "192.168.0.118"
+address = "10.125.70.26"
 
 # while True: 
 
@@ -55,34 +58,35 @@ address = "192.168.0.118"
 
 
 #---------------try4------------use openstack api
-def token():
-        # data2 = json.loads(request.body)
-        # Admin으로 Token 발급 Body
-        token_payload = {
-            "auth": {
-                "identity": {
-                    "methods": [
-                        "password"
-                    ],
-                    "password": {
-                        "user": {
-                            "name": "admin",
-                            "domain": {
-                                "name": "Default"
-                            },
-                            "password": "0000"
-                        }
-                    }
-                }
-            }
-        }  
+def check_module(serverID):
+    f=AccountView()
+    admin_token=f.token()
+    if admin_token == None:
+        print("Server Error")
+    try: 
+    #인스턴스 생성 요청
+        user_res = requests.get("http://"+address+"/compute/v2.1/servers/"+serverID,
+            headers = {'X-Auth-Token' : admin_token}, timeout=5)
+        vm_status= user_res.json()["server"]["status"]
+        print(vm_status)
+        if vm_status == "Error":
+            print("VM Error")
+            return None
+        else:
+            return vm_status
+    except Timeout:
+            print("Server Connection Failed")
+            return None
 
-        # Openstack keystone token 발급
-        auth_res = request.post("http://"+address+"/identity/v3/auth/tokens",
-            headers = {'content-type' : 'application/json'},
-            data = json.dumps(token_payload))
+    except ConnectionError:
+        print("HTTPConnectionErr")
+        return None
+    except requests.exceptions.ConnectionError:
+        status_code = "Server Error"
+        print(status_code)
 
-        #발급받은 token 출력
-        admin_token = auth_res.headers["X-Subject-Token"]
-        print("token",admin_token)
-        return admin_token
+def main():
+    serverID="642574eb-f9bf-4b65-84aa-48fd404c8d4b"
+    check_module(serverID)
+
+main()

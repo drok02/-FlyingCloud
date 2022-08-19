@@ -1,13 +1,8 @@
-from asyncio.windows_events import NULL
-from django.shortcuts import render
 import json
-import yaml
 import requests
-from django.views import View
-from django.http import HttpResponse, JsonResponse
-import sys
-import pandas as pd
-
+from urllib3 import HTTPConnectionPool
+from requests.exceptions import Timeout
+import errno
 address = "192.168.0.118"
 tenet_id = "91d317f465b84ed2bc9f123eac5f8b07"
 
@@ -36,15 +31,27 @@ class AccountView():
             }
         }  
 
-        # Openstack keystone token 발급
-        auth_res = requests.post("http://"+address+"/identity/v3/auth/tokens",
-            headers = {'content-type' : 'application/json'},
-            data = json.dumps(token_payload))
- 
+        try:
+                # Openstack keystone token 발급
+            auth_res = requests.post("http://"+address+"/identity/v3/auth/tokens",
+                headers = {'content-type' : 'application/json'},
+                data = json.dumps(token_payload),timeout=5)
+            admin_token = auth_res.headers["X-Subject-Token"]
+            print("token : \n",admin_token)
+            return admin_token
+        except Timeout:
+            print("Server Connection Failed")
+            return None
+
+        except ConnectionError:
+            print("HTTPConnectionErr")
+            return None
+        except requests.exceptions.ConnectionError:
+            status_code = "Connection refused"
+            print(status_code)
+            return None
         #발급받은 token 출력
-        admin_token = auth_res.headers["X-Subject-Token"]
-        print("token : \n",admin_token)
-        return admin_token
+        
 
     #인스턴스 생성 
     def create_instance(self,flavor_id="d1"):
@@ -150,10 +157,9 @@ class AccountView():
 def main():
     f=AccountView()
     # f.create_instance()
-    f.create_img_from_server("instance_test","image_test")
+    #f.create_img_from_server("instance_test","image_test")
     # admin_token = f.token()
     # user_res = requests.get("http://192.168.0.118/image/v2/images/f1adcd57-0edf-47df-afc0-b253a82af441/file?X-Auth-Token="+admin_token
         
     # )
     # print("image file response is : \n ",user_res)  
-main()
