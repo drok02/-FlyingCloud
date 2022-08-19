@@ -69,7 +69,7 @@ def check_module(serverID):
             headers = {'X-Auth-Token' : admin_token}, timeout=5)
         vm_status= user_res.json()["server"]["status"]
         print(vm_status)
-        if vm_status == "Error":
+        if vm_status == "ERROR":
             print("VM Error")
             return None
         else:
