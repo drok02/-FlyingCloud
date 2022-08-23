@@ -154,7 +154,25 @@ class AccountView():
             data = json.dumps(openstack_img_payload))
 
         print("인스턴스로부터 이미지 생성 ",user_res)    
-    def remove_image(self,image_name)
+    
+    #이미지 삭제
+    def delete_image(self,image_name):
+
+        admin_token= self.token()
+
+        #파라미터로 받은 이미지 이름의 id반환
+        image_uuid=requests.get("http://"+address+"/image/v2/images?name="+image_name,
+            headers = {'X-Auth-Token' : admin_token}
+            ).json()["servers"][0]["id"]
+
+        print("image uuid is : \n",image_uuid)
+
+        # 반환받은 이미지 id를 입력값으로 이미지 삭제
+        # user_res = requests.delete("http://"+address+"/image/v2/images"+image_uuid,
+        #     headers = {'X-Auth-Token' : admin_token}
+        #     )
+
+        # print("인스턴스로부터 생성한 이미지 삭제 ",user_res)    
         
 def main():
     f=AccountView()
