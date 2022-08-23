@@ -154,7 +154,8 @@ class AccountView():
             data = json.dumps(openstack_img_payload))
 
         print("인스턴스로부터 이미지 생성 ",user_res)    
-
+    def remove_image(self,image_name)
+        
 def main():
     f=AccountView()
     # f.create_instance()

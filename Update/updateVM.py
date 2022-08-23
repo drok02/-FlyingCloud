@@ -111,10 +111,9 @@ class AccountView1():
         end = time.time()
         print("종래 시스템의 오케스트레이션 가상환경 업데이트 시간 : ", end-start)
         
-
 def main():
     f=AccountView1()
-    # f.get_stackserverID("VM_of_Orchestration_test","updateimage")
+    f.get_stackserverID("VM_of_Orchestration_test","updateimage")
     # f.create_stack()
     stackName="VE"
     stackID=f.get_stack(stackName)
