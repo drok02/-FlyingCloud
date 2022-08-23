@@ -1,0 +1,6 @@
+{
+    "parameters":{
+        "packages" : ["pwgen","libguestfs-tools", "apache2"],
+        "image": "updateimage"
+    }
+}

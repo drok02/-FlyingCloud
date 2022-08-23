@@ -32,7 +32,7 @@
                 "cloud_config": {
                     "packages": [
                     "libguestfs-tools",
-                    "apache2"
+	                   "apache2"
                     ]
                 }
                 }
@@ -59,7 +59,7 @@
             "server_floating_ip": {
                 "type": "OS::Neutron::FloatingIP",
                 "properties": {
-                "floating_network_id": "019022fc-d60a-4653-9f23-0e22bb2cdd0d",
+                "floating_network_id": "fc8938a9-c7ea-48a9-953e-cf9badfb1a96",
                 "port_id": {
                     "get_resource": "mybox_management_port"
                 }
@@ -115,7 +115,7 @@
                     "router_id": {
                         "get_resource": "router"
                     },
-                    "network_id": "019022fc-d60a-4653-9f23-0e22bb2cdd0d"
+                    "network_id": "fc8938a9-c7ea-48a9-953e-cf9badfb1a96"
                 }
             },
             "router_interface": {

@@ -3,8 +3,8 @@ import requests
 from urllib3 import HTTPConnectionPool
 from requests.exceptions import Timeout
 import errno
-address = "192.168.0.118"
-tenet_id = "91d317f465b84ed2bc9f123eac5f8b07"
+address = "10.125.70.26"
+tenet_id = "1e65301da67c4015be06b7213129bef3"
 
 class AccountView():
  
@@ -133,6 +133,7 @@ class AccountView():
         print()
         print("server list : \n",server_uuid)
         print()
+        return server_uuid
 
     #인스턴스로부터 스냅샷 이미지 생성
     def create_img_from_server(self,instacne_name,image_name):
