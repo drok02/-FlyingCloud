@@ -45,7 +45,7 @@ class AccountView1():
                 headers = {'content-type' : 'application/json'},
                 data = json.dumps(token_payload),timeout=5)
             admin_token = auth_res.headers["X-Subject-Token"]
-            print("token : \n",admin_token)
+            # print("token : \n",admin_token)
             return admin_token
         except Timeout:
             print("Server Connection Failed")
@@ -108,16 +108,17 @@ class AccountView1():
     def update_stack(self,stackName):
         stackID=self.get_stack_uuid(stackName)
         imageName="imageForUpdate"
-
+        admin_token= self.token()
 
         # 1. 스택 이름으로 기존 인스턴스 정보(이름) 받아오기
         serverName=self.get_instance_name(stackName)
         # 2. 인스턴스 이름으로 스냅샷 이미지 생성
         f=backupimgSend.AccountView()
         f.create_img_from_server(serverName,imageName)
-
+        
         # Wait until image status active
         image_uuid= self.get_image_id(imageName)
+
         while True :
             image_status=requests.get("http://"+address+"/image/v2/images/"+image_uuid,
                 headers = {'Content-Type': 'application/json','X-Auth-Token' : admin_token}).json()['status']
@@ -127,55 +128,91 @@ class AccountView1():
                     print("image status is error. terminate process.")
                     return 0
                 else: 
+                    print("wait until image status active. current status is",image_status)
                     sleep(0.5)
 
 
         # 3. 생성된 스냅샷 이미지를 Template에 추가
-        admin_token= self.token()
+        
         flavor_num=int(input("변경을 원하는 VCPU 개수 입력(변경을 원하지 않을시 0 입력): \n"))
-        ram_num=int(input("변경을 원하는 RAM(MB) 입력(변경을 원하지 않을시 0 입력): \n"))
-        disk_num=int(input("변경을 원하는 Disk(GB) 입력(변경을 원하지 않을시 0 입력): \n"))
-        network_num= int(input("네트워크 입력 : 1. public 2. private 3. shared\n"))
-        package_num=int(input("변경을 원하는 Package들을 입력(복수입력 가능, 변경을 원하지 않을시 0 입력): 1. apache2 2. pwgen 3. libguestfs-tools 4. pastebinit 5. gedit  \n"))
+        # ram_num=int(input("변경을 원하는 RAM(MB) 입력(변경을 원하지 않을시 0 입력): \n"))
+        # disk_num=int(input("변경을 원하는 Disk(GB) 입력(변경을 원하지 않을시 0 입력): \n"))
+        # network_num= int(input("네트워크 입력 : 1. public 2. private 3. shared\n"))
+        # package_num=int(input("변경을 원하는 Package들을 입력(복수입력 가능, 변경을 원하지 않을시 0 입력): 1. apache2 2. pwgen 3. libguestfs-tools 4. pastebinit 5. gedit  \n"))
         
         # flavor=[""]
         # selected_flavor={"flavor": flavor[]}
         # json_data["parameters"].update(flavor)
-
+        
 
         if(flavor_num==1):
             with open('update.json','r') as f:
                 json_data=json.load(f)
         elif(flavor_num==2):
-            with open('Update/update_patch.json','r') as f:
+            with open('update_patch.json','r') as f:
                 json_data=json.load(f)
         elif(flavor_num==3):
-            with open('fedora-0223.json','r') as f2:
+            with open('fedora-0223.json','r') as f:
                 json_data=json.load(f)
 
+        json_data["parameters"]["images"]=imageName
 
 
         # 4. Template의 내용을 바탕으로 가상환경 업데이트 수행
         user_res = requests.patch("http://"+address+"/heat-api/v1/"+tenet_id+"/stacks/"+stackName+"/"+stackID,
             headers = {'X-Auth-Token' : admin_token},
             data = json.dumps(json_data))
-        print("stack 업데이트 ",user_res.json())
-
+        print("stack 업데이트 ",user_res)
 
         
+        while True :
+            stack_status= requests.get("http://"+address+"/heat-api/v1/"+tenet_id+"/stacks/"+stackName,
+            headers = {'X-Auth-Token' : admin_token}).json()["stack"]["stack_status"]
+            # print(stack_status)
+            if stack_status=="UPDATE_COMPLETE": 
+                print("UPDATE_COMPLETE")
+                break
+            else : 
+                if stack_status=="error" :
+                    print("image status is error. terminate process.")
+                    return 0
+                else: 
+                    print("wait until stack status complete. current status is",stack_status)
+                    sleep(1)
+
+
+        f2=backupimgSend.AccountView()
+        f2.delete_image(imageName)
+
+
+
+    def test(self,serverName,imageName):
+        f=backupimgSend.AccountView()
+        f.create_img_from_server(serverName,imageName)
+
+    def test2(self,imageName):
+        f=backupimgSend.AccountView()
+        f.delete_image(imageName)
+    def test3(self):
+        stackName="VE"
+        f=AccountView1()
+        admin_token=f.token()
+        stack_status= requests.get("http://"+address+"/heat-api/v1/"+tenet_id+"/stacks/"+stackName,
+            headers = {'X-Auth-Token' : admin_token}).json()["stack"]["stack_status"]
+        print(json.dumps(stack_status,indent="\t"))
+
 def main():
     f=AccountView1()
     admin_token = f.token()
     # f.create_image("VM_of_Orchestration_test","updateimage2")
     # f.get_instance_name("VE")
+    stackName="VE"
+    f.update_stack(stackName)
+    # f.test("VM_of_Orchestration_test","Update")
+    # f.test2("Update")
 
-
-
-
-
-    # f.create_stack()
-    # stackName="VE"
-    # stackID=f.get_stack(stackName)
-    # f.update_stack(stackName,stackID)
-
+# f=AccountView1()
+# f.test3()
 main()
+
+
