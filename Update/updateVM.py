@@ -5,11 +5,13 @@ from requests.exceptions import Timeout
 import sys,os
 sys.path.append("/Users/ibonghun/Developer/FlyingCloud/DR")
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname("__file__"))) + "/DR/")
+# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname("__file__"))) + "/Create/")
 from time import sleep
 import backupimgSend
+# import create
 
-address = "10.125.70.26"
-tenet_id = "1e65301da67c4015be06b7213129bef3"
+address = "192.168.0.12"
+tenet_id = "38aa5f9f33aa4d73bce5442f8a306e11"
 
 # 토큰 받아오기
 class AccountView1(): 
@@ -84,9 +86,39 @@ class AccountView1():
         print("Image ID is : ",image_uuid)    
         return image_uuid
 
+    #-------------------------Cinder---------------------------------------------
+    def get_Stacks_volName(self,stackName):
+        template=self.get_stack_template(stackName)
+        volName=template["resources"]["myvolume"]["properties"]["name"]
+        print("VolName is : ", volName)
+        return volName
+
+    def get_vol_id(self,VolName):
+        admin_token=self.token()
+        auth_res = requests.get("http://"+address+"/volume/v3/"+tenet_id+"/volumes?name="+VolName,
+            headers = {'X-Auth-Token' : admin_token}).json()["volumes"][0]["id"]
+        print("VolName ",VolName,"'s Volume set result is : ",auth_res)    
+        return auth_res
+
+
+    def set_vol_avail(self,volID):
+        admin_token=self.token()
+        payload={
+            "os-reset_status": {
+                "status": "available",
+                "attach_status": "detached",
+            }
+        }
+
+        auth_res = requests.post("http://"+address+"/volume/v3/"+tenet_id+"/volumes/"+volID+"/action",
+            headers = {'Content-Type': 'application/json','X-Auth-Token' : admin_token},
+            data=json.dumps(payload)).json()
+        print("Volume ",volID,"'s status is : ",auth_res)    
+        return auth_res
+
 
     #------------------------Heat---------------------------------------------------------
-    #스택 ID 받아오기    
+    #스택의 ID 받아오기    
     def get_stack_uuid(self,stackName):
         admin_token= self.token()
         auth_res = requests.get("http://"+address+"/heat-api/v1/"+tenet_id+"/stacks/"+stackName,
@@ -94,6 +126,18 @@ class AccountView1():
         stack_ID=auth_res["stack"]["id"]    
         print("Stack ID is : ",stack_ID)    
         return stack_ID
+    
+    
+    def get_stack_template(self,stackName):
+        admin_token=self.token()
+        stack_uuid=self.get_stack_uuid(stackName)
+        auth_res = requests.get("http://"+address+"/heat-api/v1/"+tenet_id+"/stacks/"+stackName+"/"+stack_uuid+"/template",
+            headers = {'X-Auth-Token' : admin_token}).json()
+        print("Stack ",stackName,"'s Template detail is : ",auth_res)    
+        return auth_res
+
+
+
 
     # 스택으로 생성한 인스턴스의 이름 받아오기
     def get_instance_name(self,stackName):
@@ -103,38 +147,45 @@ class AccountView1():
             headers = {'X-Auth-Token' : admin_token}).json()["resources"]["mybox"]["properties"]["name"]
         print("Stack ",stackName,"'s Instance Name is : ",auth_res)    
         return auth_res
-
+        
     # 사용자 요구사항 변경에 따른 stack(가상환경) Update
     def update_stack(self,stackName):
         stackID=self.get_stack_uuid(stackName)
         imageName="imageForUpdate"
         admin_token= self.token()
 
-        # 1. 스택 이름으로 기존 인스턴스 정보(이름) 받아오기
-        serverName=self.get_instance_name(stackName)
-        # 2. 인스턴스 이름으로 스냅샷 이미지 생성
-        f=backupimgSend.AccountView()
-        f.create_img_from_server(serverName,imageName)
-        
-        # Wait until image status active
-        image_uuid= self.get_image_id(imageName)
+        # # 1. 스택 이름으로 기존 인스턴스 정보(이름) 받아오기
+        # serverName=self.get_instance_name(stackName)
 
-        while True :
-            image_status=requests.get("http://"+address+"/image/v2/images/"+image_uuid,
-                headers = {'Content-Type': 'application/json','X-Auth-Token' : admin_token}).json()['status']
-            if image_status=="active": break
-            else : 
-                if image_status=="error" :
-                    print("image status is error. terminate process.")
-                    return 0
-                else: 
-                    print("wait until image status active. current status is",image_status)
-                    sleep(0.5)
+        # 1_1 Volume의 상태 available 상태로 변경시키기 
+        VolName=self.get_Stacks_volName(stackName)
+        Volid=self.get_vol_id(VolName)
+
+
+
+        # # 2. 인스턴스 이름으로 스냅샷 이미지 생성
+        # f=backupimgSend.AccountView()
+        # f.create_img_from_server(serverName,imageName)
+        
+        # # Wait until image status active
+        # image_uuid= self.get_image_id(imageName)
+
+        # while True :
+        #     image_status=requests.get("http://"+address+"/image/v2/images/"+image_uuid,
+        #         headers = {'Content-Type': 'application/json','X-Auth-Token' : admin_token}).json()['status']
+        #     if image_status=="active": break
+        #     else : 
+        #         if image_status=="error" :
+        #             print("image status is error. terminate process.")
+        #             return 0
+        #         else: 
+        #             print("wait until image status active. current status is",image_status)
+        #             sleep(0.5)
 
 
         # 3. 생성된 스냅샷 이미지를 Template에 추가
-        
-        flavor_num=int(input("변경을 원하는 VCPU 개수 입력(변경을 원하지 않을시 0 입력): \n"))
+        flavor_num=int(input("업데이트 파일 선택 : 1. update.json 2. update_patch.json  \n"))
+        # flavor_num=int(input("변경을 원하는 VCPU 개수 입력(변경을 원하지 않을시 0 입력): \n"))
         # ram_num=int(input("변경을 원하는 RAM(MB) 입력(변경을 원하지 않을시 0 입력): \n"))
         # disk_num=int(input("변경을 원하는 Disk(GB) 입력(변경을 원하지 않을시 0 입력): \n"))
         # network_num= int(input("네트워크 입력 : 1. public 2. private 3. shared\n"))
@@ -155,7 +206,7 @@ class AccountView1():
             with open('fedora-0223.json','r') as f:
                 json_data=json.load(f)
 
-        json_data["parameters"]["images"]=imageName
+        # json_data["parameters"]["images"]=imageName
 
 
         # 4. Template의 내용을 바탕으로 가상환경 업데이트 수행
@@ -165,24 +216,24 @@ class AccountView1():
         print("stack 업데이트 ",user_res)
 
         
-        while True :
-            stack_status= requests.get("http://"+address+"/heat-api/v1/"+tenet_id+"/stacks/"+stackName,
-            headers = {'X-Auth-Token' : admin_token}).json()["stack"]["stack_status"]
-            # print(stack_status)
-            if stack_status=="UPDATE_COMPLETE": 
-                print("UPDATE_COMPLETE")
-                break
-            else : 
-                if stack_status=="error" :
-                    print("image status is error. terminate process.")
-                    return 0
-                else: 
-                    print("wait until stack status complete. current status is",stack_status)
-                    sleep(1)
+        # while True :
+        #     stack_status= requests.get("http://"+address+"/heat-api/v1/"+tenet_id+"/stacks/"+stackName,
+        #     headers = {'X-Auth-Token' : admin_token}).json()["stack"]["stack_status"]
+        #     # print(stack_status)
+        #     if stack_status=="UPDATE_COMPLETE": 
+        #         print("UPDATE_COMPLETE")
+        #         break
+        #     else : 
+        #         if stack_status=="error" :
+        #             print("image status is error. terminate process.")
+        #             return 0
+        #         else: 
+        #             print("wait until stack status complete. current status is",stack_status)
+        #             sleep(1)
 
 
-        f2=backupimgSend.AccountView()
-        f2.delete_image(imageName)
+        # f2=backupimgSend.AccountView()
+        # f2.delete_image(imageName)
 
 
 
@@ -200,14 +251,19 @@ class AccountView1():
         stack_status= requests.get("http://"+address+"/heat-api/v1/"+tenet_id+"/stacks/"+stackName,
             headers = {'X-Auth-Token' : admin_token}).json()["stack"]["stack_status"]
         print(json.dumps(stack_status,indent="\t"))
+    
+    def test4(self):
+        f=create.AccountView()
+        f.create_stack()
 
 def main():
     f=AccountView1()
     admin_token = f.token()
     # f.create_image("VM_of_Orchestration_test","updateimage2")
     # f.get_instance_name("VE")
-    stackName="VE"
-    f.update_stack(stackName)
+    f.set_vol_avail("c1a09d0a-a565-4378-a7a7-b8c15921e002")
+    # stackName="VE"
+    # f.update_stack(stackName)
     # f.test("VM_of_Orchestration_test","Update")
     # f.test2("Update")
 

@@ -88,10 +88,10 @@ class AccountView():
             with open('main.json','r') as f:
                 json_data=json.load(f)
         elif(system_num==2):
-            with open('centos.json','r') as f:
+            with open('createVol.json','r') as f:
                 json_data=json.load(f)
         elif(system_num==3):
-            with open('fedora-0223.json','r') as f:
+            with open('create.json','r') as f:
                 json_data=json.load(f)
         # json_data['stack_name']=stack_name
         # json_data['template']['resources']['demo_key']['properties']['name']=key_name
@@ -105,6 +105,8 @@ class AccountView():
             headers = {'X-Auth-Token' : admin_token},
             data = json.dumps(json_data))
         print("stack생성 ",user_res.json())
+
+
 
     # 인스턴스 백업 데이터 추출
     def extract_backup(self, name):
