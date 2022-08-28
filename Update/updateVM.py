@@ -87,12 +87,13 @@ class AccountView1():
         return image_uuid
 
     #-------------------------Cinder---------------------------------------------
+    #스택의 볼륨이름 get
     def get_Stacks_volName(self,stackName):
         template=self.get_stack_template(stackName)
         volName=template["resources"]["myvolume"]["properties"]["name"]
         print("VolName is : ", volName)
         return volName
-
+    # 해당 볼륨의 ID get
     def get_vol_id(self,VolName):
         admin_token=self.token()
         auth_res = requests.get("http://"+address+"/volume/v3/"+tenet_id+"/volumes?name="+VolName,
@@ -100,19 +101,20 @@ class AccountView1():
         print("VolName ",VolName,"'s Volume set result is : ",auth_res)    
         return auth_res
 
-
+    #볼륨의 status 변경
     def set_vol_avail(self,volID):
         admin_token=self.token()
         payload={
             "os-reset_status": {
                 "status": "available",
                 "attach_status": "detached",
+                "migration_status": "migrating"
             }
         }
 
         auth_res = requests.post("http://"+address+"/volume/v3/"+tenet_id+"/volumes/"+volID+"/action",
             headers = {'Content-Type': 'application/json','X-Auth-Token' : admin_token},
-            data=json.dumps(payload)).json()
+            data=json.dumps(payload))
         print("Volume ",volID,"'s status is : ",auth_res)    
         return auth_res
 
@@ -160,6 +162,7 @@ class AccountView1():
         # 1_1 Volume의 상태 available 상태로 변경시키기 
         VolName=self.get_Stacks_volName(stackName)
         Volid=self.get_vol_id(VolName)
+        self.set_vol_avail(Volid)
 
 
 
@@ -261,9 +264,9 @@ def main():
     admin_token = f.token()
     # f.create_image("VM_of_Orchestration_test","updateimage2")
     # f.get_instance_name("VE")
-    f.set_vol_avail("c1a09d0a-a565-4378-a7a7-b8c15921e002")
-    # stackName="VE"
-    # f.update_stack(stackName)
+    # f.set_vol_avail("c1a09d0a-a565-4378-a7a7-b8c15921e002")
+    stackName="VE"
+    f.update_stack(stackName)
     # f.test("VM_of_Orchestration_test","Update")
     # f.test2("Update")
 
