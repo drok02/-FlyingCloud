@@ -3,7 +3,7 @@ import requests
 from urllib3 import HTTPConnectionPool
 from requests.exceptions import Timeout
 import errno
-address = "10.125.70.26"
+address = "192.168.0.118"
 tenet_id = "1e65301da67c4015be06b7213129bef3"
 
 class AccountView():
@@ -142,6 +142,7 @@ class AccountView():
         instance_uuid=requests.get("http://"+address+"/compute/v2.1/servers?"+instacne_name,
             headers = {'X-Auth-Token' : admin_token}
             ).json()["servers"][0]["id"]
+        
         print("instance uuid is : \n",instance_uuid)
         openstack_img_payload = {
                 "createImage" : {
@@ -173,13 +174,26 @@ class AccountView():
         #     )
 
         # print("인스턴스로부터 생성한 이미지 삭제 ",user_res)    
+    def downimage(self,imageName,url):
         
+        admin_token=self.token()
+        # user_res = requests.get("http://"+address+"/image/v2/images/"+url+"/file",
+        #     headers = {'X-Auth-Token' : admin_token})
+        user_res = requests.get("http://"+address+"/image/v2/images/ab9f9ddf-4df5-4507-a5f5-6def8f3ad7c1/file",
+            headers = {'X-Auth-Token' : admin_token})
+        file= open('C:/Users/PC/Desktop/os_image/backup/'+imageName+'.qcow2','wb')
+        file.write(user_res.content)
+        file.close
+        print("image file download response is",user_res)
+        return user_res
 def main():
     f=AccountView()
     # f.create_instance()
-    #f.create_img_from_server("instance_test","image_test")
+    # f.create_img_from_server("test","image_test")
     # admin_token = f.token()
     # user_res = requests.get("http://192.168.0.118/image/v2/images/f1adcd57-0edf-47df-afc0-b253a82af441/file?X-Auth-Token="+admin_token
         
     # )
     # print("image file response is : \n ",user_res)  
+    # f.downimage("ab9f9ddf-4df5-4507-a5f5-6def8f3ad7c1","backup0903")
+main()
