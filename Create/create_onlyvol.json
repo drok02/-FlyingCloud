@@ -1,0 +1,85 @@
+{
+                                
+    "stack_name": "VE",
+    "template": {
+        "heat_template_version": "2018-08-31",
+        "description": "This template demonstrates the different ways configuration resources can be used to specify boot-time cloud-init configuration.",
+        "parameters":{
+            "flavor": {
+                "default": "m1.tiny",
+                "type": "string"
+            },
+            "packages":{
+                "default" :["vim"],
+                "type" : "comma_delimited_list"
+            },
+            "image":{
+                "default": "ubuntu",
+                "type":"string"
+            },
+            "volumesize":{
+                "default": "3",
+                "type":"string"
+            }
+        },
+        "resources": {
+            "mybox": {
+                "type": "OS::Nova::Server",
+                "properties": {
+                "name": "VM_of_Orchestration_test2",
+                "flavor": {"get_param":"flavor"},
+                "key_name": {
+                    "get_resource": "demo_key"
+                },
+                "networks": [
+                    {
+                    "port": {
+                        "get_resource": "mybox_management_port"
+                    }
+                    }
+                ],
+                "user_data": {
+                    "get_resource": "myconfig"
+                },
+                "user_data_format": "RAW",
+                "block_device_mapping_v2": [
+                    {
+                        "boot_index":"0",
+                        "device_name": "voltest",
+                        "volume_id":"d20f2b61-7f6d-4395-8fb1-cb5d029086a1"
+                    }
+                ]
+                }
+            },
+            "myconfig": {
+                "type": "OS::Heat::CloudConfig",
+                "properties": {
+                "cloud_config": {
+                    "packages": {"get_param" : "packages"}
+                }
+                }
+            },
+            "demo_key": {
+                "type": "OS::Nova::KeyPair",
+                "properties": {
+                "name": "testkey0929"
+                }
+            },
+            "mybox_management_port": {
+                "type": "OS::Neutron::Port",
+                "properties": {
+                "network_id": "36c81b78-8f43-4b31-bf8b-af3fb9f21b95"
+                }
+            }
+            
+        }
+    },
+
+    "parameters":{
+        "flavor" : "ds512M",
+        "packages" : ["vim", "pwgen"],
+        "image" : "ubuntu",
+        "volumesize" : "5"
+    }
+    
+}
