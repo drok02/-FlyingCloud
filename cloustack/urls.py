@@ -1,0 +1,3 @@
+baseurl='http://211.197.83.186:8080/client/api?'
+apiKey="YWYjj6hm1w3SE802vm21xfWl4gFq-K0WuQNkCFx7b7hUtfkqmgXzFLZ_G9k8xDST4gU6U-Fyh_gN9Ft17Xcdww"
+secretKey="NcPKi1iYFdOT6G15aZwFLBcpwMdswBpbzVCyQoNWKXnBNXIuXR029271FMMEdIzz29eHA2CfOuoWnS9EVg46cg"
