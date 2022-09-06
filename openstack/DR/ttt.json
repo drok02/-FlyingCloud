@@ -1,0 +1,21 @@
+{
+    'images': [{
+        'name': 'ubuntu', 
+        'disk_format': 'qcow2', 
+        'container_format': 'bare', 
+        'visibility': 'shared',
+         'size': 373161984, 
+         'virtual_size': 2361393152, 
+         'status': 'active', 
+         'checksum': '442b5413970d544dcb15d679c926116b', 
+         'protected': False, 
+         'min_ram': 250, 
+         'min_disk': 1,
+          'owner': '1e65301da67c4015be06b7213129bef3',
+           'os_hidden': False, 
+           'os_hash_algo': 'sha512', 
+           'os_hash_value': '2e5555356f5b175bc9cc713028cd3ce8b5df3ae31f762fbad990314b19476ae1451ea913b7be8203440b84d4c977dbf43bf0045b23811914401bb4a71a1b9bbf', 
+           'id': '3c48561a-1fc5-4213-a038-64b475e1eb22', 
+           'created_at': '2022-08-22T07:41:48Z',
+            'updated_at': '2022-08-22T07:41:51Z', 
+'tags': [], 'self': '/v2/images/3c48561a-1fc5-4213-a038-64b475e1eb22', 'file': '/v2/images/3c48561a-1fc5-4213-a038-64b475e1eb22/file', 'schema': '/v2/schemas/image'}], 'first': '/v2/images?name=ubuntu', 'schema': '/v2/schemas/images'}

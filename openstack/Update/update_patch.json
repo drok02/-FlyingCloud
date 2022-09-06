@@ -1,0 +1,5 @@
+{
+    "parameters":{
+        "packages" : ["pwgen","libguestfs-tools", "apache2", "gedit"]
+    }
+}
