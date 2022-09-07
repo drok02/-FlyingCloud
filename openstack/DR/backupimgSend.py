@@ -1,10 +1,14 @@
 import json
+import os
+import sys
+
 import requests
-from urllib3 import HTTPConnectionPool
 from requests.exceptions import Timeout
-import errno
-address = "192.168.0.118"
-tenet_id = "1e65301da67c4015be06b7213129bef3"
+
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+import openstack.url as url
+address = url.address
+tenet_id = url.tenet_id
 
 class AccountView():
  
