@@ -1,3 +1,5 @@
+import json
+
 import signature
 import urls as key
 
@@ -27,7 +29,10 @@ class Account():
                   "email": email,"firstname":firstname, "lastname":lastname, "password":password, "username":username}
 
         response= signature.requestsig(self.baseurl,self.secretkey,request)
-        print(response)
+        response=json.loads(response)
+        userid=response["createaccountresponse"]["account"]["user"][0]["id"]
+        print("user id is "+userid)
+        return userid                           #생성한 Account의 유저 ID 반환
 
-f=Account()
-f.listAccount()
+# f=Account()
+# f.createAccount("drok02@nvaer.com","lee","bonghun","0000","bonghun1")

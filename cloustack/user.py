@@ -1,3 +1,5 @@
+import json
+
 import signature
 import urls as key
 
@@ -50,9 +52,11 @@ class user():
         }
         secretkey=self.secretkey
         response = signature.requestsig(baseurl,secretkey,request)
+        response=json.loads(response)
         userapikey=response["registeruserkeysresponse"]["userkeys"]["apikey"]
-        usersecretkey=
-        return response
+        usersecretkey=response["registeruserkeysresponse"]["userkeys"]["secretkey"]
+        return userapikey, usersecretkey
 
-f=user()
-f.registerUserKey('59e7ea0e-e109-44d0-aaef-1ef725664e68')
+# f=user()
+# apikey,secretkey=f.registerUserKey('59e7ea0e-e109-44d0-aaef-1ef725664e68')
+# print("API KEY IS ",apikey,"\nSECRET KEY IS",secretkey)
