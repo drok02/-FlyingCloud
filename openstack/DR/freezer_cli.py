@@ -3,7 +3,7 @@ import requests
 import paramiko
 
 address = "192.168.0.118"
-tenet_id = "30ea542f8d2740459116a43ffa82eb3f"
+tenet_id = "23328c361b654bf1ab2c9ee4b145187b"
 serverName = "test"
 serverPw = "0000"
 
@@ -45,10 +45,19 @@ class AccountView():
     def writeTxtFile(self, fileNm, instanceid, ):
         file = open(fileNm + ".txt", "w", encoding="UTF-8")
         file.write('source /opt/stack/devstack/admin-openrc.sh')
+        # file.write('\nopenstack server list')
         file.write('\nfreezer-agent --action backup --nova-inst-id ')
         file.write(instanceid)
-        file.write(
-            ' --storage local --container /home/test/backup0812_7 --backup-name backup0812_file_7 --mode nova --engine nova --no-incremental true --log-file backup0812_7.log')
+        file.write(' --storage local --container /home/test/backup0907_2 --backup-name backup0907_2 --mode nova --engine nova --no-incremental true --log-file backup0907_2.log')
+        file.close()
+
+    def writerestoreTxtFile(self, fileNm, instanceid, ):
+        file = open(fileNm + ".txt", "w", encoding="UTF-8")
+        file.write('source /opt/stack/devstack/admin-openrc.sh')
+        # file.write('\nopenstack server list')
+        file.write('\nfreezer-agent --action restore --nova-inst-id ')
+        file.write(instanceid)
+        file.write(' --storage local --container /home/test/backup0907_2 --backup-name backup0907_2 --mode nova --engine nova --no-incremental true --log-file restore0907.log')
         file.close()
 
     def readTxtFile(self, fileNm):
@@ -74,66 +83,23 @@ class AccountView():
     def create_backup(self, instanceid):
         cli = paramiko.SSHClient()
         cli.set_missing_host_key_policy(paramiko.AutoAddPolicy)
-
+        self.writeTxtFile("./freezer_backup_test_0907_1", instanceid)
+        # # 3 try
+        commandLines = self.readTxtFile("./freezer_backup_test_0907_1")  # 메모장 파일에 적어놨던 명령어 텍스트 읽어옴
+        print(commandLines)
         server = address
         user = serverName
         pwd = serverPw
 
         cli.connect(server, port=22, username=user, password=pwd)
 
-        self.writeTxtFile("./freezer_backup_test_0907.txt", instanceid)
-        # # 3 try
-        commandLines = self.readTxtFile("./freezer_backup_cli.txt")  # 메모장 파일에 적어놨던 명령어 텍스트 읽어옴
-        print(commandLines)
+
 
         stdin, stdout, stderr = cli.exec_command(";".join(commandLines))  # 명령어 실행
         lines = stdout.readlines()  # 실행한 명령어에 대한 결과 텍스트
         resultData = ''.join(lines)
 
         print(resultData)  # 결과 확인
-
-        # 2 try
-
-        # channel = cli.invoke_shell()
-
-        # channel.send("sudo su - stack")
-        # time.sleep(1.0)
-        # output = channel.recv(65535).decode("utf-8")
-        # print(output)
-        # channel.send("0000")
-        # time.sleep(1.0)
-        # output = channel.recv(65535).decode("utf-8")
-        # print(output)
-        # channel.send("cd devstack")
-        # time.sleep(1.0)
-        # output = channel.recv(65535).decode("utf-8")
-        # print(output)
-        # channel.send("source admin-openrc.sh")
-        # time.sleep(1.0)
-        # output = channel.recv(65535).decode("utf-8")
-        # print(output)
-        # channel.send("freezer-agent --action backup --nova-inst-id 4aff323c-089a-4f1d-a95f-fd045172e222 --storage local --container home/test/backup0812_6 --backup-name backup0812_file_6 --mode nova --engine nova --no-incremental true --log-file backup0812_6.log")
-        # time.sleep(1.0)
-        # output = channel.recv(65535).decode("utf-8")
-        # print(output)
-
-        # 1 try
-
-        # stdin, stdout, stderr = cli.exec_command("sudo su - stack")
-        # lines = stdout.readlines()
-        # print(''.join(lines))
-        # stdin, stdout, stderr = cli.exec_command("0000")
-        # lines = stdout.readlines()
-        # print(''.join(lines))
-        # stdin, stdout, stderr = cli.exec_command("cd devstack")
-        # lines = stdout.readlines()
-        # print(''.join(lines))
-        # stdin, stdout, stderr = cli.exec_command("source admin-openrc.sh")
-        # lines = stdout.readlines()
-        # print(''.join(lines))
-        # stdin, stdout, stderr = cli.exec_command("freezer-agent --action backup --nova-inst-id 4aff323c-089a-4f1d-a95f-fd045172e222 --storage local --container home/test/backup0812_4 --backup-name backup0812_file_4 --mode nova --engine nova --no-incremental true --log-file backup0812_4.log")
-        # lines = stdout.readlines()
-        # print(''.join(lines))
 
         cli.close()
 
@@ -159,12 +125,35 @@ class AccountView():
         print(resultData)  # 결과 확인
         cli.close()
 
+    def restore_backup(self, instanceid):
+        cli = paramiko.SSHClient()
+        cli.set_missing_host_key_policy(paramiko.AutoAddPolicy)
+        self.writerestoreTxtFile("./freezer_restore_test_0907", instanceid)
+        commandLines = self.readTxtFile("./freezer_restore_test_0907")  # 메모장 파일에 적어놨던 명령어 텍스트 읽어옴
+        print(commandLines)
+        server = address
+        user = serverName
+        pwd = serverPw
+
+        cli.connect(server, port=22, username=user, password=pwd)
+
+
+
+        stdin, stdout, stderr = cli.exec_command(";".join(commandLines))  # 명령어 실행
+        lines = stdout.readlines()  # 실행한 명령어에 대한 결과 텍스트
+        resultData = ''.join(lines)
+
+        print(resultData)  # 결과 확인
+
+        cli.close()
+
 
 def main():
     f = AccountView()
     # f.token()
     # f.writeTxtFile('/Users/ibonghun/Developer/FlyingCloud/DR/testfreezer.txt','bhff323c-089a-4f1d-a95f-fd045172e222')
-    # f.create_backup('bhff323c-089a-4f1d-a95f-fd045172e222')
+    # f.create_backup('47c8fa09-8a78-4bbb-8451-7ccada7af50a')
+    f.restore_backup('47c8fa09-8a78-4bbb-8451-7ccada7af50a')
     # f.create_img_from_server("ubuntu_backup_test","image_backup_test")
     # admin_token = f.token()
     # user_res = requests.get("http://192.168.0.118/image/v2/images/0eb01803-788f-4461-aea5-737050c05148/file",
@@ -177,3 +166,46 @@ def main():
 
 
 main()
+
+# 2 try
+
+# channel = cli.invoke_shell()
+
+# channel.send("sudo su - stack")
+# time.sleep(1.0)
+# output = channel.recv(65535).decode("utf-8")
+# print(output)
+# channel.send("0000")
+# time.sleep(1.0)
+# output = channel.recv(65535).decode("utf-8")
+# print(output)
+# channel.send("cd devstack")
+# time.sleep(1.0)
+# output = channel.recv(65535).decode("utf-8")
+# print(output)
+# channel.send("source admin-openrc.sh")
+# time.sleep(1.0)
+# output = channel.recv(65535).decode("utf-8")
+# print(output)
+# channel.send("freezer-agent --action backup --nova-inst-id 4aff323c-089a-4f1d-a95f-fd045172e222 --storage local --container home/test/backup0812_6 --backup-name backup0812_file_6 --mode nova --engine nova --no-incremental true --log-file backup0812_6.log")
+# time.sleep(1.0)
+# output = channel.recv(65535).decode("utf-8")
+# print(output)
+
+# 1 try
+
+# stdin, stdout, stderr = cli.exec_command("sudo su - stack")
+# lines = stdout.readlines()
+# print(''.join(lines))
+# stdin, stdout, stderr = cli.exec_command("0000")
+# lines = stdout.readlines()
+# print(''.join(lines))
+# stdin, stdout, stderr = cli.exec_command("cd devstack")
+# lines = stdout.readlines()
+# print(''.join(lines))
+# stdin, stdout, stderr = cli.exec_command("source admin-openrc.sh")
+# lines = stdout.readlines()
+# print(''.join(lines))
+# stdin, stdout, stderr = cli.exec_command("freezer-agent --action backup --nova-inst-id 4aff323c-089a-4f1d-a95f-fd045172e222 --storage local --container home/test/backup0812_4 --backup-name backup0812_file_4 --mode nova --engine nova --no-incremental true --log-file backup0812_4.log")
+# lines = stdout.readlines()
+# print(''.join(lines))
