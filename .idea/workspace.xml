@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae2e8251-2df1-4af0-9c3d-e3edc6650fac" name="Changes" comment="append cli text write func">
-      <change afterPath="$PROJECT_DIR$/cloustack/console.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="ae2e8251-2df1-4af0-9c3d-e3edc6650fac" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/openstack/DR/freezer_cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/openstack/DR/freezer_cli.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +19,10 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2EDipjpR8dpNtLAnFgChpEXGKUO" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -39,7 +42,7 @@
       <recent name="$PROJECT_DIR$/openstack/DR" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.console">
+  <component name="RunManager" selected="Python.freezer_cli (1)">
     <configuration name="CloudDR" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="FlyingCloud" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -62,7 +65,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="console" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="freezer_cli (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="FlyingCloud" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -70,12 +73,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/cloustack" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/openstack/DR" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cloustack/console.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/openstack/DR/freezer_cli.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -106,32 +109,9 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="offering" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="FlyingCloud" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/cloustack" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cloustack/offering.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.console" />
-        <item itemvalue="Python.offering" />
+        <item itemvalue="Python.freezer_cli (1)" />
         <item itemvalue="Python.freezer_cli" />
         <item itemvalue="Python.CloudDR" />
       </list>
@@ -147,7 +127,7 @@
       <updated>1662136740507</updated>
       <workItem from="1662136742559" duration="2305000" />
       <workItem from="1662284495759" duration="3537000" />
-      <workItem from="1662472605325" duration="17564000" />
+      <workItem from="1662472605325" duration="15668000" />
     </task>
     <task id="LOCAL-00001" summary="append cli text write func">
       <created>1662538382527</created>
@@ -156,12 +136,12 @@
       <option name="project" value="LOCAL" />
       <updated>1662538382527</updated>
     </task>
-    <task id="LOCAL-00002" summary="append cli text write func">
-      <created>1662538674504</created>
+    <task id="LOCAL-00002" summary="modify backup process">
+      <created>1662551937152</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1662538674504</updated>
+      <updated>1662551937152</updated>
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
@@ -182,12 +162,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="append cli text write func" />
-    <option name="LAST_COMMIT_MESSAGE" value="append cli text write func" />
+    <MESSAGE value="modify backup process" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify backup process" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/FlyingCloud$freezer_cli.coverage" NAME="freezer_cli Coverage Results" MODIFIED="1662539149371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DR" />
+    <SUITE FILE_PATH="coverage/FlyingCloud$freezer_cli__1_.coverage" NAME="freezer_cli (1) Coverage Results" MODIFIED="1662551484558" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/openstack/DR" />
     <SUITE FILE_PATH="coverage/FlyingCloud$CloudDR.coverage" NAME="CloudDR Coverage Results" MODIFIED="1662533940953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/FlyingCloud$freezer_cli.coverage" NAME="freezer_cli Coverage Results" MODIFIED="1662538002198" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DR" />
-    <SUITE FILE_PATH="coverage/FlyingCloud$console.coverage" NAME="console Coverage Results" MODIFIED="1662556340489" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
-    <SUITE FILE_PATH="coverage/FlyingCloud$offering.coverage" NAME="offering Coverage Results" MODIFIED="1662555243542" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
   </component>
 </project>
