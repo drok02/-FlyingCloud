@@ -109,6 +109,26 @@ class Template():
         print(id)
         return id
 
+    def getTemplateIDfromAccount(self,name):
+        baseurl = key.baseurl
+        apiKey = key.apiKey
+        secretKey = key.secretKey
+
+        # baseurl='http://10.125.70.28:8080/client/api?'
+        request = {}
+        request['command'] = 'listTemplates'
+        request['templatefilter'] = 'executable'
+        request['name'] = name
+        request['response'] = 'json'
+        # request['apikey']='RUwHTWN6y-czxVkr2u0AJvM-sNucusoWc3lw1dqMUSvjJt3rhjPgA7hReEZMqSlSTVl_BfYzQf7Myf7kGqzHHQ'
+        request['apikey'] = apiKey
+        secretkey = secretKey
+        response = signature.requestsig(baseurl, secretkey, request)
+        jsonData = json.loads(response)
+        templateID=jsonData["listtemplatesresponse"]["template"][0]["id"]
+        print("Template id is ",templateID)
+        return templateID
+
     def deleteTemplate(self,id):
         baseurl = key.baseurl
         apikey = key.apiKey
@@ -119,9 +139,28 @@ class Template():
 
         signature.requestsig(baseurl, secretkey, request)
 
+    def getTemplatestatus(self,name):
+        baseurl = key.baseurl
+        apiKey = key.apiKey
+        secretKey = key.secretKey
 
+        # baseurl='http://10.125.70.28:8080/client/api?'
+        request = {}
+        request['command'] = 'listTemplates'
+        request['templatefilter'] = 'executable'
+        request['name'] = name
+        request['response'] = 'json'
+        # request['apikey']='RUwHTWN6y-czxVkr2u0AJvM-sNucusoWc3lw1dqMUSvjJt3rhjPgA7hReEZMqSlSTVl_BfYzQf7Myf7kGqzHHQ'
+        request['apikey'] = apiKey
+        secretkey = secretKey
+        response = signature.requestsig(baseurl, secretkey, request)
+        jsonData = json.loads(response)
+        status=jsonData["listtemplatesresponse"]["template"][0]["status"]
+        print("Template status is ",status)
+        return status
 
 # f=Template()
+# f.getTemplatestatus("bong")
 # # f.regiTemplate("openstack_image","http://3.39.193.17:8000/media/img-files/backup0903.qcow2","a20b6938-286a-11ed-bfb3-0800277c0f4b")
 # # f.listTemplate()
 # z=zone.getZone1ID()

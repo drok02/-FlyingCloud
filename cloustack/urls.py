@@ -21,4 +21,4 @@ def getuserkey(userid):
 
     signature.requestsig(baseurl,secretKey,request)
 
-getuserkey('d618c5e3-c9df-4088-834b-6b77889a0360')
+# getuserkey('d618c5e3-c9df-4088-834b-6b77889a0360')

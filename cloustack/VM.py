@@ -9,9 +9,9 @@ import sys
 import signature
 import urls as key
 # from .ServiceOffering import listServiceOfferings as service
-import Zone.getZone1ID as zone
-import Template.getCentosID as centos
-import ServiceOffering.listServiceOfferings as listOffer
+
+
+import offering as listOffer
 # import Zone.listZone
 import zone
 import network
@@ -26,7 +26,8 @@ class VM():
         n=network.net()
         h=host.host()
         # serviceofferingId = "6906780f-3625-46ea-86f0-5ed272dc2f73"
-        serviceofferingId = listOffer.listServiceOfferings()
+        offering=listOffer.Offering()
+        serviceofferingId = offering.listServiceOfferings()
         # baseurl='http://10.125.70.28:8080/client/api?'
         request= {"apiKey": apiKey, "response": "json", "command": "deployVirtualMachine",
                   "hostid": h.gethostid(),

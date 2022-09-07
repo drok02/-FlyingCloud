@@ -19,6 +19,11 @@ class OS():
         response = signature.requestsig(baseurl, secretkey, request)
         return response
 
-
-f = OS()
-f.listostype()
+    def getubuntuID(self):
+        response=self.listostype()
+        response = json.loads(response)
+        ubuntu1804LTSID = response["listostypesresponse"]["ostype"][16]["id"]
+        print("18.04lts ID is ", ubuntu1804LTSID)
+        return ubuntu1804LTSID
+# f = OS()
+# f.listostype()

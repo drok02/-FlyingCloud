@@ -174,15 +174,15 @@ class AccountView1():
         # image_uuid= self.get_image_id(imageName)
 
         # while True :
-        #     image_status=requests.get("http://"+address+"/image/v2/images/"+image_uuid,
+        #     template_status=requests.get("http://"+address+"/image/v2/images/"+image_uuid,
         #         headers = {'Content-Type': 'application/json','X-Auth-Token' : admin_token}).json()['status']
-        #     if image_status=="active": break
+        #     if template_status=="active": break
         #     else : 
-        #         if image_status=="error" :
+        #         if template_status=="error" :
         #             print("image status is error. terminate process.")
         #             return 0
         #         else: 
-        #             print("wait until image status active. current status is",image_status)
+        #             print("wait until image status active. current status is",template_status)
         #             sleep(0.5)
 
 
