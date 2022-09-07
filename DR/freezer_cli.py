@@ -41,6 +41,16 @@ class AccountView():
         print("token : \n",admin_token)
         return admin_token
 
+    def writeTxtFile(self, fileNm,instanceid,):
+        file = open(fileNm + ".txt", "w", encoding="UTF-8")
+        file.write('source /opt/stack/devstack/admin-openrc.sh')
+        file.write('\nfreezer-agent --action backup --nova-inst-id ')
+        file.write(instanceid)
+        file.write(' --storage local --container /home/test/backup0812_7 --backup-name backup0812_file_7 --mode nova --engine nova --no-incremental true --log-file backup0812_7.log')
+        file.close()
+
+
+
     def readTxtFile(self,fileNm):
         file = open(fileNm+".txt", "r", encoding="UTF-8")
         
@@ -60,8 +70,8 @@ class AccountView():
 
         return data
 
-    #인스턴스 생성 
-    def create_backup(self):
+    #백업 생성
+    def create_backup(self,instanceid):
         cli = paramiko.SSHClient()
         cli.set_missing_host_key_policy(paramiko.AutoAddPolicy)
 
@@ -71,9 +81,9 @@ class AccountView():
 
         cli.connect(server, port=22, username=user, password=pwd)
 
-
+        self.writeTxtFile("./freezer_backup_test_0907.txt",instanceid)
         # # 3 try 
-        commandLines = self.readTxtFile("./freezercli") # 메모장 파일에 적어놨던 명령어 텍스트 읽어옴
+        commandLines = self.readTxtFile("./freezer_backup_cli.txt") # 메모장 파일에 적어놨던 명령어 텍스트 읽어옴
         print(commandLines)
 
         stdin, stdout, stderr = cli.exec_command(";".join(commandLines)) # 명령어 실행
@@ -154,8 +164,9 @@ class AccountView():
         
 def main():
     f=AccountView()
-    f.token()
-    # f.create_instance()
+    # f.token()
+    # f.writeTxtFile('/Users/ibonghun/Developer/FlyingCloud/DR/testfreezer.txt','bhff323c-089a-4f1d-a95f-fd045172e222')
+    # f.create_backup('bhff323c-089a-4f1d-a95f-fd045172e222')
     # f.create_img_from_server("ubuntu_backup_test","image_backup_test")
     # admin_token = f.token()
     # user_res = requests.get("http://192.168.0.118/image/v2/images/0eb01803-788f-4461-aea5-737050c05148/file",
