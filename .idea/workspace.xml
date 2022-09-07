@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae2e8251-2df1-4af0-9c3d-e3edc6650fac" name="Changes" comment="add getuserkey">
+    <list default="true" id="ae2e8251-2df1-4af0-9c3d-e3edc6650fac" name="Changes" comment="add register userkey">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloustack/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/cloustack/account.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloustack/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/cloustack/user.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -177,7 +176,7 @@
       <workItem from="1662136742559" duration="2305000" />
       <workItem from="1662284495759" duration="3537000" />
       <workItem from="1662472605325" duration="15668000" />
-      <workItem from="1662560146434" duration="561000" />
+      <workItem from="1662560146434" duration="1836000" />
     </task>
     <task id="LOCAL-00001" summary="append cli text write func">
       <created>1662538382527</created>
@@ -193,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662551937152</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add register userkey">
+      <created>1662560734245</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1662560734245</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,7 +219,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="append cli text write func" />
     <MESSAGE value="modify backup process" />
-    <option name="LAST_COMMIT_MESSAGE" value="modify backup process" />
+    <MESSAGE value="add register userkey" />
+    <option name="LAST_COMMIT_MESSAGE" value="add register userkey" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/FlyingCloud$CloudDR.coverage" NAME="CloudDR Coverage Results" MODIFIED="1662533940953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

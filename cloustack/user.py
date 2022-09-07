@@ -40,7 +40,7 @@ class user():
         print(response)
 
 
-    def getuserkey(self,userid):
+    def registerUserKey(self, userid):
         baseurl=self.baseurl
         request={
             "apiKey": self.apiKey,
@@ -55,4 +55,4 @@ class user():
         return response
 
 f=user()
-f.getuserkey('59e7ea0e-e109-44d0-aaef-1ef725664e68')
+f.registerUserKey('59e7ea0e-e109-44d0-aaef-1ef725664e68')
