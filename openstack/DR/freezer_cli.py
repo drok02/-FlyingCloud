@@ -48,7 +48,7 @@ class AccountView():
         # file.write('\nopenstack server list')
         file.write('\nfreezer-agent --action backup --nova-inst-id ')
         file.write(instanceid)
-        file.write(' --storage local --container /home/test/backup0907_2 --backup-name backup0907_2 --mode nova --engine nova --no-incremental true --log-file backup0907_2.log')
+        file.write(' --storage local --container /home/test/backup --backup-name backup --mode nova --engine nova --no-incremental true --log-file backup.log')
         file.close()
 
     def writerestoreTxtFile(self, fileNm, instanceid, ):
@@ -57,7 +57,7 @@ class AccountView():
         # file.write('\nopenstack server list')
         file.write('\nfreezer-agent --action restore --nova-inst-id ')
         file.write(instanceid)
-        file.write(' --storage local --container /home/test/backup0907_2 --backup-name backup0907_2 --mode nova --engine nova --no-incremental true --log-file restore0907.log')
+        file.write(' --storage local --container /home/test/backup --backup-name backup --mode nova --engine nova --no-incremental true --log-file restore.log')
         file.close()
 
     def readTxtFile(self, fileNm):
