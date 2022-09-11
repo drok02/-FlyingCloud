@@ -25,5 +25,5 @@ class OS():
         ubuntu1804LTSID = response["listostypesresponse"]["ostype"][16]["id"]
         print("18.04lts ID is ", ubuntu1804LTSID)
         return ubuntu1804LTSID
-# f = OS()
-# f.listostype()
+f = OS()
+f.listostype()

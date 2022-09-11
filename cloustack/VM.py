@@ -1,3 +1,4 @@
+import json
 import urllib
 import urllib.parse
 import urllib.request
@@ -29,10 +30,14 @@ class VM():
         offering=listOffer.Offering()
         serviceofferingId = offering.listServiceOfferings()
         # baseurl='http://10.125.70.28:8080/client/api?'
+
+        #"hostid": h.gethostid(),"startvm": "false",
         request= {"apiKey": apiKey, "response": "json", "command": "deployVirtualMachine",
-                  "hostid": h.gethostid(),
                   "networkids": n.getnetid(), 'serviceofferingId': serviceofferingId,
-                  'templateId': templateID, 'zoneId': z.getZoneID(), "startvm": "false","displayname":vmname,"name":vmname}
+                  'templateId': templateID, 'zoneId': z.getZoneID(),
+                  "displayname":vmname,"name":vmname,"domainid":"24efff21-2bab-11ed-94e7-08002767856c",
+                  "account":"admin", "hostid":"c5637606-7d9a-4fdf-aa18-3815616e3ecd"
+                  }
 
         response= signature.requestsig(baseurl,secretkey,request)
         # print(response)
@@ -42,7 +47,10 @@ class VM():
         request = {"apiKey": key.apiKey, "response": "json", "command": "listVirtualMachines",
                    "name": vmname}
         response = signature.requestsig(key.baseurl, key.secretKey, request)
-        return response
+        response= json.loads(response)
+        vmid=response["listvirtualmachinesresponse"]["virtualmachine"][0]["id"]
+        print("VM ID is ",vmid)
+        return vmid
 
     def startVM(self,vmid):
         request = {"apiKey": key.apiKey, "response": "json", "command": "startVirtualMachine",
@@ -63,5 +71,12 @@ class VM():
                    "id": vmid, "expunge": "true"}
         response = signature.requestsig(key.baseurl, key.secretKey, request)
         return response
-# f=VM()
-# f.deployVM("2b8ea85e-8695-4b8e-81f0-57b9463f7336")
+
+    def createSnapshot(self,vmid):
+        request = {"apiKey": key.apiKey, "response": "json", "command": "createVMSnapshot",
+                   "virtualmachineid": vmid}
+        response = signature.requestsig(key.baseurl, key.secretKey, request)
+        return response
+f=VM()
+# f.deployVM("989c3cde-0557-48ee-8197-58a1d3b90d08","test0909")
+f.deployVM("2b8ea85e-8695-4b8e-81f0-57b9463f7336","test-create-Template-VM")

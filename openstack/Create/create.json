@@ -56,9 +56,9 @@
             "myconfig": {
                 "type": "OS::Heat::CloudConfig",
                 "properties": {
-                "cloud_config": {
-                    "packages": {"get_param" : "packages"}
-                }
+                    "cloud_config": {
+                        "packages": {"get_param" : "packages"}
+                    }
                 }
             },
             "myvolume":{
