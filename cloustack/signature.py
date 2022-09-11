@@ -23,9 +23,9 @@ def requestsig( baseurl, secretkey, request):
     sig = urllib.parse.quote_plus(base64.encodebytes(
         hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest()).strip())
     req = baseurl + request_str + '&signature=' + sig
-    print(req)
+    # print(req)
     res=urllib.request.urlopen(req)
     response=res.read()
 
-    print(response)
+    # print(response)
     return response

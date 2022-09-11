@@ -2,6 +2,9 @@ import base64
 import hmac
 import os
 import sys
+
+from requests.auth import HTTPBasicAuth
+
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import urls as key
 import json
@@ -11,13 +14,15 @@ import hashlib
 import webbrowser
 import urllib.parse
 import urllib.request
-from selenium import webdriver
+import requests
 
 class Template():
     baseurl = key.baseurl
     apikey = key.apiKey
     secretkey = key.secretKey
 
+
+    #인터넷상의 이미지 파일로 템플릿 생성
     def regiTemplate(self, name, url, osTypeid, zoneid):
         baseurl = key.baseurl
         apikey = key.apiKey
@@ -57,29 +62,12 @@ class Template():
         baseurl = key.baseurl
         apiKey = key.apiKey
         secretKey = key.secretKey
-
-        # baseurl='http://10.125.70.28:8080/client/api?'
         request = {}
         request['command'] = 'listTemplates'
         request['templatefilter'] = 'featured'
         request['response'] = 'json'
-        # request['apikey']='RUwHTWN6y-czxVkr2u0AJvM-sNucusoWc3lw1dqMUSvjJt3rhjPgA7hReEZMqSlSTVl_BfYzQf7Myf7kGqzHHQ'
         request['apikey'] = apiKey
         secretkey = secretKey
-        # secretkey='FGZAE9Pk5jWqlGPOdCGsdO7mkdkbc8azmTBOQzQnKrnbaiuUsnF2klsJ_FDfKlrs-s2ZTiYDIUiwmHw7aZ7B4Q'
-        # request_str = '&'.join(['='.join([k, urllib.parse.quote_plus(request[k])]) for k in request.keys()])
-        # sig_str = '&'.join(
-        #     ['='.join([k.lower(), urllib.parse.quote_plus(request[k].lower().replace('+', '%20'))]) for k in
-        #      sorted(request)])
-        # sig = hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1)
-        # sig = hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest()
-        # sig = base64.encodebytes(hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest())
-        # sig = base64.encodebytes(
-        #     hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest()).strip()
-        # sig = urllib.parse.quote_plus(base64.encodebytes(
-        #     hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest()).strip())
-        # req = baseurl + request_str + '&signature=' + sig
-        # res = urllib.request.urlopen(req)
         response = signature.requestsig(baseurl,secretkey,request)
         jsonData = json.loads(response)
         return jsonData
@@ -133,6 +121,7 @@ class Template():
 
         signature.requestsig(baseurl, secretkey, request)
 
+    #현재 템플릿의 상태 반환
     def getTemplatestatus(self,name):
         baseurl = key.baseurl
         apiKey = key.apiKey
@@ -152,53 +141,176 @@ class Template():
         status=jsonData["listtemplatesresponse"]["template"][0]["status"]
         print("Template status is ",status)
         return status
-    #"virtualmachineid": vmid, "domainid":"24efff21-2bab-11ed-94e7-08002767856c",
-    def createTemplate(self, name, osTypeid, volid):
-        request = {"apiKey": key.apiKey, "response": "json", "command": "createTemplate","displaytext":name,
-                   "name": name, "ostypeid": osTypeid,
-                   "volumeid":volid, "extractable":"true"
-        }
+    #"virtualmachineid": vmid, "domainid":"24efff21-2bab-11ed-94e7-08002767856c","volumeid":volid
 
-        request_str = '&'.join(['='.join([k, urllib.parse.quote_plus(request[k])]) for k in request.keys()])
-        sig_str = '&'.join(
-            ['='.join([k.lower(), urllib.parse.quote_plus(request[k].lower().replace('+', '%20'))]) for k in
-             sorted(request)])
-        sig = hmac.new(self.secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1)
-        sig = hmac.new(self.secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest()
-        sig = base64.encodebytes(hmac.new(self.secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest())
-        sig = base64.encodebytes(
-            hmac.new(self.secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest()).strip()
-        sig = urllib.parse.quote_plus(base64.encodebytes(
-            hmac.new(self.secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest()).strip())
-        req = self.baseurl + request_str + '&signature=' + sig
-        print(req)
-        res = urllib.request.urlopen(req)
-        response = res.read()
-    def extractTemplate(self):
+    #VM으로부터 템플릿 생성
+    def createTemplate(self, templatename, osTypeid, volid):
         baseurl = key.baseurl
-        apikey = key.apiKey
-        secretkey = key.secretKey
-        request = {"apiKey": apikey, "response": "json", "command": "extractTemplate",
-                   "id": "8d3d8fb5-4b02-4557-abd2-dcafc474b3a6","mode":"HTTP_DOWNLOAD"}
-        signature.requestsig(baseurl, secretkey, request)
+        apiKey = key.apiKey
+        secretKey = key.secretKey
+        request = {"apiKey": apiKey, "response": "json", "command": "createTemplate","displaytext":templatename,
+                   "name": templatename, "ostypeid": osTypeid,
+                   "volumeid": volid
+                   }
+        response = signature.requestsig(baseurl, secretKey, request)
+        response_json=json.loads(response)
+        templateid=response_json["createtemplateresponse"]["id"]
+        print("Template Create is complete. id is ",templateid)
+        return templateid
 
-    def updateextractable(self):
+
+    #템플릿을 추출가능하도록 속성 업데이트
+    def updateextractable(self,templateID):
         # updateTemplatePermissions
         baseurl = key.baseurl
         apikey = key.apiKey
         secretkey = key.secretKey
         request = {"apiKey": apikey, "response": "json", "command": "updateTemplatePermissions",
-                   "id": "8d3d8fb5-4b02-4557-abd2-dcafc474b3a6","isextractable":"true"}
+                   "id": templateID ,"isextractable":"true"}
+        res=signature.requestsig(baseurl, secretkey, request)
+        print(res)
+
+    # 템플릿 추출
+    def extractTemplate(self, templateID):
+        baseurl = key.baseurl
+        apikey = key.apiKey
+        secretkey = key.secretKey
+        request = {"apiKey": apikey, "response": "json", "command": "extractTemplate",
+                   "id": templateID, "mode": "download", "zoneid": "e4ebd8fa-f0af-46b0-ac20-0acc3863b3d1"}
+        # signature.requestsig(baseurl, secretkey, request)
+        request_str = '&'.join(['='.join([k, urllib.parse.quote_plus(request[k])]) for k in request.keys()])
+        sig_str = '&'.join(
+            ['='.join([k.lower(), urllib.parse.quote_plus(request[k].lower().replace('+', '%20'))]) for k in
+             sorted(request)])
+        sig = hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1)
+        sig = hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest()
+        sig = base64.encodebytes(hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest())
+        sig = base64.encodebytes(
+            hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest()).strip()
+        sig = urllib.parse.quote_plus(base64.encodebytes(
+            hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest()).strip())
+        req = baseurl + request_str + '&signature=' + sig
+        # request["signature"]=sig
+        authParams = HTTPBasicAuth('admin', 'password')
+        print(req)
+        res = requests.get(req)
+        res = res.json()
+        jobid = res["extracttemplateresponse"]["jobid"]
+        # print(req)
+        print("job id is ", jobid)
+        # res = urllib.request.urlopen(req)
+        # response = res.read()
+        # header=res.getheader('content-type')
+        # print("response is :", response)
+        # print("header is : \n",header)
+        return jobid
+
+    # job 상태 반환
+    def queryjobresult(self, TemplateJobID):
+        #         queryAsyncJobResult
+        baseurl = key.baseurl
+        apikey = key.apiKey
+        secretkey = key.secretKey
+        request = {"apiKey": apikey, "response": "json", "command": "queryAsyncJobResult", "jobid": TemplateJobID}
+
+        res = signature.requestsig(baseurl, secretkey, request)
+        print(res)
+        return res
+
+    # 추출한 Template을 다운로드하기 위한 url 반환
+    def getTemplateDownURL(self, TemplateJobID):
+        baseurl = key.baseurl
+        apikey = key.apiKey
+        secretkey = key.secretKey
+        request = {"apiKey": apikey, "response": "json", "command": "queryAsyncJobResult", "jobid": TemplateJobID}
+        response = signature.requestsig(baseurl, secretkey, request)
+        resJson = json.loads(response)
+        url = resJson['queryasyncjobresultresponse']['jobresult']['template']['url']
+        print("DownloadURL is : \n", url)
+        return url
+
+    def listCertificates(self):
+        baseurl = key.baseurl
+        apikey = key.apiKey
+        secretkey = key.secretKey
+        request = {"apiKey": apikey, "response": "json", "command": "listTemplatePermissions",
+                   "id": "8d3d8fb5-4b02-4557-abd2-dcafc474b3a6"}
         signature.requestsig(baseurl, secretkey, request)
 
-f=Template()
-# f.createTemplate("bongTemplate_snapshot_ubuntu3","8eef80ca-2bab-11ed-94e7-08002767856c","5cc5bb79-bdd6-4539-89a7-b5427df33971")
+    def privisionCertificate(self,hostid):
+        #
+        baseurl = key.baseurl
+        apikey = key.apiKey
+        secretkey = key.secretKey
+        request = {"apiKey": apikey, "response": "json", "command": "provisionCertificate",
+                   "hostid": hostid}
+        signature.requestsig(baseurl, secretkey, request)
+
+    def listCert(self):
+
+        baseurl = key.baseurl
+        apikey = key.apiKey
+        secretkey = key.secretKey
+        request = {"apiKey": apikey, "response": "json", "command": "listCaCertificate"}
+        signature.requestsig(baseurl, secretkey, request)
+
+    def listCAProvider(self):
+        baseurl = key.baseurl
+        apikey = key.apiKey
+        secretkey = key.secretKey
+        request = {"apiKey": apikey, "response": "json", "command": "listCAProviders"}
+        signature.requestsig(baseurl, secretkey, request)
+
+    def listTags(self):
+        baseurl = key.baseurl
+        apikey = key.apiKey
+        secretkey = key.secretKey
+        request = {"apiKey": apikey, "response": "json", "command": "listTags","account":"admin"}
+
+        signature.requestsig(baseurl, secretkey, request)
+
+    def listApis(self):
+        baseurl = key.baseurl
+        apikey = key.apiKey
+        secretkey = key.secretKey
+        request = {"apiKey": apikey, "response": "json", "command": "listApis","name":"extractTemplate"}
+
+        signature.requestsig(baseurl, secretkey, request)
+
+
+    def listAsyncJob(self):
+        #listAsyncJobs
+        baseurl = key.baseurl
+        apikey = key.apiKey
+        secretkey = key.secretKey
+        request = {"apiKey": apikey, "response": "json", "command": "listApis", "name": "listAsyncJobs"}
+
+        signature.requestsig(baseurl, secretkey, request)
+
+
+
+# f=Template()
+# f.getTemplateDownURL("1f522d2d-4ed3-4b11-86a7-54bc2d63d4ff")
+
+# f.createTemplate("restore_snapshot_ubuntu","8eef80ca-2bab-11ed-94e7-08002767856c","0478cea7-619c-490c-8fd8-2183bca8e106")
 #centos 5.5 ostype id is 2544d7e0-2bab-11ed-94e7-08002767856c
 #ubuntu 3 template id is 8d3d8fb5-4b02-4557-abd2-dcafc474b3a6
 # f.updateextractable()
 # f.getTemplatestatus("bong")
-f.extractTemplate()
-# # f.regiTemplate("openstack_image","http://3.39.193.17:8000/media/img-files/backup0903.qcow2","a20b6938-286a-11ed-bfb3-0800277c0f4b")
+
+
+# f.extractTemplate("0a241840-25ac-43be-9d99-9adc54b14381")
+# f.queryjobresult()
+# f.listCertificates()
+# # f.regiTemplate("op
+# f.privisionCertificate("c5637606-7d9a-4fdf-aa18-3815616e3ecd")
+# enstack_image","http://3.39.193.17:8000/media/img-files/backup
+# f.listApis()
+# 0903.qcow2","a20b6938-286a-11ed-bfb3-0800277c0f4b")
+
+
 # # f.listTemplate()
 # z=zone.getZone1ID()
+# f.listAsyncJob()
+
 # f.regiTemplate("imagebackupapitest2","http://3.39.193.17:8000/media/img-files/backup0903.qcow2","8eef80ca-2bab-11ed-94e7-08002767856c",z)
