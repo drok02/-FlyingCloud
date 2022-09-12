@@ -14,6 +14,9 @@ import urls as key
 
 defaultZone = "zone1"
 
+baseurl=key.baseurl
+apiKey=key.apiKey
+secretkey=key.secretKey
 
 class zone():
 

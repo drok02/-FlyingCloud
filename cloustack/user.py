@@ -45,12 +45,12 @@ class user():
     def registerUserKey(self, userid):
         baseurl=self.baseurl
         request={
-            "apiKey": self.apiKey,
+            "apiKey": key.admin_apkKey,
             "response" : "json",
             "command" : "registerUserKeys",
             "id": userid
         }
-        secretkey=self.secretkey
+        secretkey=key.admin_secretKey
         response = signature.requestsig(baseurl,secretkey,request)
         response=json.loads(response)
         userapikey=response["registeruserkeysresponse"]["userkeys"]["apikey"]

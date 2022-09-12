@@ -17,9 +17,12 @@ import offering as listOffer
 import zone
 import network
 import host
-class VM():
+import domain
+import account
 
-    def deployVM(self,templateID,vmname="test",isstart="true"):
+class VM():
+    account=account.Account()
+    def deployVM(self,templateID,vmname="test",isstart="true",accountid=account.getaccountID(),domainid=domain.getdefaultDomainID()):
         baseurl=key.baseurl
         apiKey=key.apiKey
         secretkey=key.secretKey

@@ -1,4 +1,3 @@
-import json
 import re
 from requests.exceptions import Timeout
 import requests
@@ -6,55 +5,13 @@ from backupimgSend import AccountView
 
 
 
-ip = ["google.com"]
+ip = ["192.168.0.15"]
 
 p = re.compile('[=]\s(\d+)[m][s]')
 
 address = "10.125.70.26"
 
-# while True: 
 
-# cmd = 'ping ' + ip[0]
-# x=subprocess.run(cmd, shell=True, timeout=30)
-# p1=p.findall(str(x))
-# print(x)
-
-# while True:
-#     cmd = 'ping' + ip[0]
-#     try: 
-#         for x in subprocess.check_output(cmd).splitlines():
-#             p1=p.findall(str(x))
-#         print(ip[0], 'Ping Ok','최소 응답시간: '+p1[0],'최대 응답시간: '+p1[1],'평균 응답시간: '+p1[2])
-#     except subprocess.CalledProcessError:
-#         print(ip, 'Ping Check')
-
-
-# ---------------try2-----------------use os system
-
-# hostname = "google.com"
-# response = os.system("ping -n 1 " + hostname)
-# print("Response is ",response)
-# if response == 0:
-#     Netstatus = "Network Active"
-# else:
-#     Netstatus = "Network Error"
-
-# print(Netstatus)
-
-
-#---------------try3--------------use ping3
-# while True:
-#     site = "google.com"
-#     result= verbose_ping(site, timeout=5)
-#     # os.system("ping -n 1 "+ site)
-#     # print(result)
-#     if result == None:
-#         print(site + '\t' + 'ping Check Fail')
-#         # 재해이벤트 발생
-#         break
-#     else:
-#         print(site + '\t'+ 'Ping Check OK')
-#     time.sleep(5)
 
 def get_serverID(Name):
     f=AccountView()
@@ -106,3 +63,49 @@ def main():
     serverID=get_serverID("test4")
     check_module(serverID)
 main()
+
+
+
+# while True:
+
+# cmd = 'ping ' + ip[0]
+# x=subprocess.run(cmd, shell=True, timeout=30)
+# p1=p.findall(str(x))
+# print(x)
+
+# while True:
+#     cmd = 'ping' + ip[0]
+#     try:
+#         for x in subprocess.check_output(cmd).splitlines():
+#             p1=p.findall(str(x))
+#         print(ip[0], 'Ping Ok','최소 응답시간: '+p1[0],'최대 응답시간: '+p1[1],'평균 응답시간: '+p1[2])
+#     except subprocess.CalledProcessError:
+#         print(ip, 'Ping Check')
+
+
+# ---------------try2-----------------use os system
+
+# hostname = "google.com"
+# response = os.system("ping -n 1 " + hostname)
+# print("Response is ",response)
+# if response == 0:
+#     Netstatus = "Network Active"
+# else:
+#     Netstatus = "Network Error"
+
+# print(Netstatus)
+
+
+#---------------try3--------------use ping3
+# while True:
+#     site = "google.com"
+#     result= verbose_ping(site, timeout=5)
+#     # os.system("ping -n 1 "+ site)
+#     # print(result)
+#     if result == None:
+#         print(site + '\t' + 'ping Check Fail')
+#         # 재해이벤트 발생
+#         break
+#     else:
+#         print(site + '\t'+ 'Ping Check OK')
+#     time.sleep(5)
