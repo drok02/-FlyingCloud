@@ -15,11 +15,11 @@ import time
 
 
 
-vmid="ed063e0a-1d74-4b3d-968d-7d19de66b28d"
+vmid="db0c3a4e-62ab-4e63-ae26-98ba4d091d7f"
 vm=VM.VM()
 os=guestOS.OS()
 template=template.Template()
-# 1. 실행중인 VM을 중지
+# # 1. 실행중인 VM을 중지
 vm.stopVM(vmid)
 
 # 1-2. VM 중지까지 대기
@@ -30,13 +30,13 @@ while True :
         print("wait until VM status Stopped. current status is", VM_status)
         time.sleep(1)
 
-# 2. VM으로부터 템플릿 생성
+# # 2. VM으로부터 템플릿 생성
 volumid=volume.getVol_ID_of_VM(vmid)
 ostypeid=os.getostypeofVMid(vmid)
 template_name="restore-template-test"
-
+#
 template_id=template.createTemplate(template_name,ostypeid,volumid)
-
+time.sleep(10)
 while True :
     template_status=template.getTemplatestatus(template_name)
     if template_status== "Download Complete": break

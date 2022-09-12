@@ -96,7 +96,6 @@ class Template():
         baseurl = key.baseurl
         apiKey = key.admin_apkKey
         secretKey = key.admin_secretKey
-
         # baseurl='http://10.125.70.28:8080/client/api?'
         request = {}
         request['command'] = 'listTemplates'

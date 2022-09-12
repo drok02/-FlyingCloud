@@ -8,20 +8,20 @@ import template
 import urls
 import VM
 
-# # # Account 만들기 -> create acoount
-# account=account.Account()
-# userid=account.createAccount("drok02@nvaer.com","lee","bonghun","0000","bonghun")
-# #
-# # # 반환된 UserID의 key 생성하기,반환받기 -> user.registerKey
-# user=user.user()
-# apikey,secretkey=user.registerUserKey(userid)
-# print(apikey,secretkey)
-#
-# urls.apiKey=apikey
-# urls.secretKey=secretkey
-#
-# #
-# #해당 key로 template 만들기 -> template.registerTemplate
+# # Account 만들기 -> create acoount
+account=account.Account()
+userid=account.createAccount("drok02@nvaer.com","lee","bonghun","0000","bonghun")
+
+# 반환된 UserID의 key 생성하기,반환받기 -> user.registerKey
+user=user.user()
+apikey,secretkey=user.registerUserKey(userid)
+print(apikey,secretkey)
+
+urls.apiKey=apikey
+urls.secretKey=secretkey
+
+
+#해당 key로 template 만들기 -> template.registerTemplate
 guestos=guestOS.OS()
 ubuntuTypeID=guestos.getubuntuID()
 zone=zone.zone()

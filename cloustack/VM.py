@@ -41,10 +41,11 @@ class VM():
                   "displayname":vmname,"name":vmname,"domainid":"24efff21-2bab-11ed-94e7-08002767856c",
                   "account":"admin", "hostid":"c5637606-7d9a-4fdf-aa18-3815616e3ecd","startvm": isstart
                   }
-
         response= signature.requestsig(baseurl,secretkey,request)
         # print(response)
         return response
+
+
     def getVMInfo(self,vmname):
         request = {"apiKey": key.apiKey, "response": "json", "command": "listVirtualMachines",
                    "name": vmname}
