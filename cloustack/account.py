@@ -26,7 +26,7 @@ class Account():
 
     def createAccount(self, email, firstname, lastname, password, username):
         request= {"apiKey": self.apiKey, "response": "json", "command": "createAccount", "accounttype":"0",
-                  "email": email,"firstname":firstname, "lastname":lastname, "password":password, "username":username}
+                  "email": email,"firstname":firstname, "lastname":lastname, "password":password, "username":username,"roleid":key.roleID}
 
         response= signature.requestsig(self.baseurl,self.secretkey,request)
         response=json.loads(response)

@@ -95,8 +95,8 @@ class VM():
         return state
 
     # /listvirtualmachinesresponse/virtualmachine/0/state
-f=VM()
-f.getvmstatus("ed063e0a-1d74-4b3d-968d-7d19de66b28d")
+# f=VM()
+# f.getvmstatus("ed063e0a-1d74-4b3d-968d-7d19de66b28d")
 # f.getVMInfo("restore-test-2")
 # # f.deployVM("989c3cde-0557-48ee-8197-58a1d3b90d08","test0909")
 # f.deployVM("2b8ea85e-8695-4b8e-81f0-57b9463f7336","test-create-Template-VM")

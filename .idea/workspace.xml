@@ -4,17 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae2e8251-2df1-4af0-9c3d-e3edc6650fac" name="Changes" comment="add ALL IN ONE Backup process Function">
-      <change afterPath="$PROJECT_DIR$/cloustack/All_in_One_RestoreProcess.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloustack/ttt.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloustack/volume.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/FlyingCloud.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FlyingCloud.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="ae2e8251-2df1-4af0-9c3d-e3edc6650fac" name="Changes" comment="add ALL IN ONE Restore process Function">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloustack/All_in_One_BackupProcess.py" beforeDir="false" afterPath="$PROJECT_DIR$/cloustack/All_in_One_BackupProcess.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloustack/VM.py" beforeDir="false" afterPath="$PROJECT_DIR$/cloustack/VM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloustack/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/cloustack/account.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloustack/guestOS.py" beforeDir="false" afterPath="$PROJECT_DIR$/cloustack/guestOS.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloustack/host.py" beforeDir="false" afterPath="$PROJECT_DIR$/cloustack/host.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloustack/signature.py" beforeDir="false" afterPath="$PROJECT_DIR$/cloustack/signature.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloustack/template.py" beforeDir="false" afterPath="$PROJECT_DIR$/cloustack/template.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloustack/ttt.json" beforeDir="false" afterPath="$PROJECT_DIR$/cloustack/ttt.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloustack/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/cloustack/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloustack/zone.py" beforeDir="false" afterPath="$PROJECT_DIR$/cloustack/zone.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,8 +61,8 @@
       <recent name="$PROJECT_DIR$/openstack/DR" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.All_in_One_RestoreProcess">
-    <configuration name="All_in_One_RestoreProcess" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.All_in_One_BackupProcess">
+    <configuration name="All_in_One_BackupProcess" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="FlyingCloud" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -74,29 +75,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cloustack/All_in_One_RestoreProcess.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="VM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="FlyingCloud" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/cloustack" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cloustack/VM.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cloustack/All_in_One_BackupProcess.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -127,6 +106,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="host" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="FlyingCloud" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/cloustack" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cloustack/host.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="template" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="FlyingCloud" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -149,7 +150,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="volume" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="zone" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="FlyingCloud" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -162,7 +163,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cloustack/volume.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cloustack/zone.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -173,10 +174,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.All_in_One_RestoreProcess" />
+        <item itemvalue="Python.All_in_One_BackupProcess" />
         <item itemvalue="Python.template" />
-        <item itemvalue="Python.VM" />
-        <item itemvalue="Python.volume" />
+        <item itemvalue="Python.zone" />
+        <item itemvalue="Python.host" />
         <item itemvalue="Python.guestOS" />
       </list>
     </recent_temporary>
@@ -198,7 +199,9 @@
       <workItem from="1662640177139" duration="10060000" />
       <workItem from="1662701941632" duration="15631000" />
       <workItem from="1662903060355" duration="75000" />
-      <workItem from="1662903173170" duration="14523000" />
+      <workItem from="1662903173170" duration="14696000" />
+      <workItem from="1662965843502" duration="1564000" />
+      <workItem from="1662967422488" duration="1622000" />
     </task>
     <task id="LOCAL-00001" summary="append cli text write func">
       <created>1662538382527</created>
@@ -242,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662575065490</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add ALL IN ONE Restore process Function">
+      <created>1662925195372</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1662925195372</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,22 +275,26 @@
     <MESSAGE value="add register userkey" />
     <MESSAGE value="modify account func which return userid" />
     <MESSAGE value="add ALL IN ONE Backup process Function" />
-    <option name="LAST_COMMIT_MESSAGE" value="add ALL IN ONE Backup process Function" />
+    <MESSAGE value="add ALL IN ONE Restore process Function" />
+    <option name="LAST_COMMIT_MESSAGE" value="add ALL IN ONE Restore process Function" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/FlyingCloud$offering.coverage" NAME="offering Coverage Results" MODIFIED="1662555243542" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
     <SUITE FILE_PATH="coverage/FlyingCloud$user.coverage" NAME="user Coverage Results" MODIFIED="1662570506603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
     <SUITE FILE_PATH="coverage/FlyingCloud$console.coverage" NAME="console 커버리지 결과" MODIFIED="1662900252100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
     <SUITE FILE_PATH="coverage/FlyingCloud$VM.coverage" NAME="VM 커버리지 결과" MODIFIED="1662916843147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
+    <SUITE FILE_PATH="coverage/FlyingCloud$All_in_One_BackupProcess.coverage" NAME="All_in_One_BackupProcess 커버리지 결과" MODIFIED="1662968866875" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
     <SUITE FILE_PATH="coverage/FlyingCloud$freezer_cli__1_.coverage" NAME="freezer_cli (1) Coverage Results" MODIFIED="1662551484558" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/openstack/DR" />
     <SUITE FILE_PATH="coverage/FlyingCloud$All_in_One_RestoreProcess.coverage" NAME="All_in_One_RestoreProcess 커버리지 결과" MODIFIED="1662924770626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
+    <SUITE FILE_PATH="coverage/FlyingCloud$zone.coverage" NAME="zone 커버리지 결과" MODIFIED="1662967565341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
     <SUITE FILE_PATH="coverage/FlyingCloud$freezer_cli.coverage" NAME="freezer_cli Coverage Results" MODIFIED="1662538002198" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DR" />
     <SUITE FILE_PATH="coverage/FlyingCloud$FinalTEST.coverage" NAME="FinalTEST Coverage Results" MODIFIED="1662574826746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
     <SUITE FILE_PATH="coverage/FlyingCloud$CloudDR.coverage" NAME="CloudDR Coverage Results" MODIFIED="1662533940953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FlyingCloud$account.coverage" NAME="account Coverage Results" MODIFIED="1662570927921" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
     <SUITE FILE_PATH="coverage/FlyingCloud$urls.coverage" NAME="urls Coverage Results" MODIFIED="1662558093115" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
-    <SUITE FILE_PATH="coverage/FlyingCloud$guestOS.coverage" NAME="guestOS 커버리지 결과" MODIFIED="1662915992822" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
-    <SUITE FILE_PATH="coverage/FlyingCloud$template.coverage" NAME="template 커버리지 결과" MODIFIED="1662924171524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
+    <SUITE FILE_PATH="coverage/FlyingCloud$guestOS.coverage" NAME="guestOS 커버리지 결과" MODIFIED="1662967351799" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
+    <SUITE FILE_PATH="coverage/FlyingCloud$host.coverage" NAME="host 커버리지 결과" MODIFIED="1662967476541" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
+    <SUITE FILE_PATH="coverage/FlyingCloud$template.coverage" NAME="template 커버리지 결과" MODIFIED="1662968164096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
     <SUITE FILE_PATH="coverage/FlyingCloud$updateVM.coverage" NAME="updateVM Coverage Results" MODIFIED="1662638606281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/openstack/Update" />
     <SUITE FILE_PATH="coverage/FlyingCloud$signature.coverage" NAME="signature Coverage Results" MODIFIED="1662557758910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />
     <SUITE FILE_PATH="coverage/FlyingCloud$volume.coverage" NAME="volume 커버리지 결과" MODIFIED="1662916042001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cloustack" />

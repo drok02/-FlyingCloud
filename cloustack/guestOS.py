@@ -17,14 +17,14 @@ class OS():
         secretkey = key.secretKey
         request = {"response": "json", "command": "listOsTypes", "keyword": "ubuntu", 'apikey': key.apiKey}
         response = signature.requestsig(baseurl, secretkey, request)
-        print(response)
+        # print(response)
         return response
 
     def getubuntuID(self):
         response=self.listostype()
         response = json.loads(response)
         ubuntu1804LTSID = response["listostypesresponse"]["ostype"][16]["id"]
-        print("18.04lts ID is ", ubuntu1804LTSID)
+        print("Ubuntu 18.04lts ID is ", ubuntu1804LTSID)
         return ubuntu1804LTSID
 
     def getostypeofVMid(self,vmid):
@@ -37,4 +37,4 @@ class OS():
         return ostypeid
 
 # f = OS()
-# f.getostypeofVMid("ed063e0a-1d74-4b3d-968d-7d19de66b28d")
+# f.getubuntuID()

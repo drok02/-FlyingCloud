@@ -42,7 +42,7 @@ class Template():
             hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest()).strip()
         sig = urllib.parse.quote_plus(base64.encodebytes(
             hmac.new(secretkey.encode('utf-8'), sig_str.encode('utf-8'), hashlib.sha1).digest()).strip())
-        req = "http://211.197.83.186:8080/client/api?" + request_str + '&signature=' + sig
+        req = baseurl + request_str + '&signature=' + sig
         print(req)
         # reque=urllib.request.Request(req)
         # data=urllib.request.urlopen(reque).read()
@@ -60,16 +60,17 @@ class Template():
 
     def listTemplate(self):
         baseurl = key.baseurl
-        apiKey = key.apiKey
-        secretKey = key.secretKey
+        apiKey = key.admin_apkKey
+        secretKey = key.admin_secretKey
         request = {}
         request['command'] = 'listTemplates'
-        request['templatefilter'] = 'featured'
+        request['templatefilter'] = 'selfexecutable'
         request['response'] = 'json'
         request['apikey'] = apiKey
         secretkey = secretKey
         response = signature.requestsig(baseurl,secretkey,request)
         jsonData = json.loads(response)
+        print(response)
         return jsonData
 
     def copyTemplate(self):
@@ -93,16 +94,15 @@ class Template():
 
     def getTemplateIDfromAccount(self,name):
         baseurl = key.baseurl
-        apiKey = key.apiKey
-        secretKey = key.secretKey
+        apiKey = key.admin_apkKey
+        secretKey = key.admin_secretKey
 
         # baseurl='http://10.125.70.28:8080/client/api?'
         request = {}
         request['command'] = 'listTemplates'
-        request['templatefilter'] = 'executable'
+        request['templatefilter'] = 'selfexecutable'
         request['name'] = name
         request['response'] = 'json'
-        # request['apikey']='RUwHTWN6y-czxVkr2u0AJvM-sNucusoWc3lw1dqMUSvjJt3rhjPgA7hReEZMqSlSTVl_BfYzQf7Myf7kGqzHHQ'
         request['apikey'] = apiKey
         secretkey = secretKey
         response = signature.requestsig(baseurl, secretkey, request)
@@ -124,16 +124,15 @@ class Template():
     #현재 템플릿의 상태 반환
     def getTemplatestatus(self,name):
         baseurl = key.baseurl
-        apiKey = key.apiKey
-        secretKey = key.secretKey
+        apiKey = key.admin_apkKey
+        secretKey = key.admin_secretKey
 
         # baseurl='http://10.125.70.28:8080/client/api?'
         request = {}
         request['command'] = 'listTemplates'
-        request['templatefilter'] = 'executable'
+        request['templatefilter'] = 'selfexecutable'
         request['name'] = name
         request['response'] = 'json'
-        # request['apikey']='RUwHTWN6y-czxVkr2u0AJvM-sNucusoWc3lw1dqMUSvjJt3rhjPgA7hReEZMqSlSTVl_BfYzQf7Myf7kGqzHHQ'
         request['apikey'] = apiKey
         secretkey = secretKey
         response = signature.requestsig(baseurl, secretkey, request)
@@ -290,6 +289,8 @@ class Template():
 
 
 # f=Template()
+# f.regiTemplate(templatename,"https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img",ubuntu,zoneid)
+
 # f.getTemplateDownURL("1f522d2d-4ed3-4b11-86a7-54bc2d63d4ff")
 
 # f.createTemplate("restore_snapshot_ubuntu","8eef80ca-2bab-11ed-94e7-08002767856c","0478cea7-619c-490c-8fd8-2183bca8e106")

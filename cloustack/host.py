@@ -27,5 +27,5 @@ class host():
         id=jsonData["listhostsresponse"]["host"][0]["id"]
         print("host"+hostname+"'s id is "+id)
         return id
-f=host()
-f.gethostid()
+# f=host()
+# f.gethostid()
