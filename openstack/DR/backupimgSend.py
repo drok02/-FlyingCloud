@@ -187,7 +187,7 @@ class AccountView():
             headers = {'X-Auth-Token' : admin_token})
         file= open('C:/Users/PC/Desktop/os_image/backup/'+imageName+'.qcow2','wb')
         file.write(user_res.content)
-        file.close
+        file.close()
         print("image file download response is",user_res)
         return user_res
 def main():
