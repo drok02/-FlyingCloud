@@ -3,7 +3,7 @@ import json
 from requests.exceptions import Timeout
 
 address = "192.168.0.118"
-tenet_id = "1e65301da67c4015be06b7213129bef3"
+tenet_id = "23328c361b654bf1ab2c9ee4b145187b"
 
 def gettoken(user="admin", password="0000", domain="Default"):
     token_payload = {

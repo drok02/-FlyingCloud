@@ -2,7 +2,7 @@ import json
 import requests
 
 address = "192.168.0.118"
-tenet_id = "ea5205416fb64850a01b7f02963751df"
+tenet_id = "23328c361b654bf1ab2c9ee4b145187b"
 
 class AccountView():
  
@@ -91,7 +91,7 @@ class AccountView():
             with open('createVol.json','r') as f:
                 json_data=json.load(f)
         elif(system_num==3):
-            with open('create_onlyvol.json','r') as f:
+            with open('create2.json','r') as f:
                 json_data=json.load(f)
         # json_data['stack_name']=stack_name
         # json_data['template']['resources']['demo_key']['properties']['name']=key_name

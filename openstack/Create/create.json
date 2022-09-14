@@ -77,7 +77,7 @@
             "mybox_management_port": {
                 "type": "OS::Neutron::Port",
                 "properties": {
-                "network_id": "14c2fac4-58c5-4dec-94fd-5b7f2f3498e5"
+                "network_id": "431d0dd6-81df-4d0d-a5ba-7373c37ac16e"
                 }
             }
             
