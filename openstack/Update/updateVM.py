@@ -10,8 +10,8 @@ from time import sleep
 import backupimgSend
 # import create
 
-address = "192.168.0.12"
-tenet_id = "38aa5f9f33aa4d73bce5442f8a306e11"
+address = "192.168.0.17"
+tenet_id = "6d3c418129734350b114b3fcee7acc44"
 
 # 토큰 받아오기
 class AccountView1(): 
@@ -160,9 +160,9 @@ class AccountView1():
         # serverName=self.get_instance_name(stackName)
 
         # 1_1 Volume의 상태 available 상태로 변경시키기 
-        VolName=self.get_Stacks_volName(stackName)
-        Volid=self.get_vol_id(VolName)
-        self.set_vol_avail(Volid)
+        # VolName=self.get_Stacks_volName(stackName)
+        # Volid=self.get_vol_id(VolName)
+        # self.set_vol_avail(Volid)
 
 
 
@@ -211,7 +211,8 @@ class AccountView1():
 
         # json_data["parameters"]["images"]=imageName
 
-
+        print(json_data)
+        print(stackID)
         # 4. Template의 내용을 바탕으로 가상환경 업데이트 수행
         user_res = requests.patch("http://"+address+"/heat-api/v1/"+tenet_id+"/stacks/"+stackName+"/"+stackID,
             headers = {'X-Auth-Token' : admin_token},
@@ -265,7 +266,7 @@ def main():
     # f.create_image("VM_of_Orchestration_test","updateimage2")
     # f.get_instance_name("VE")
     # f.set_vol_avail("c1a09d0a-a565-4378-a7a7-b8c15921e002")
-    stackName="VE"
+    stackName="ubuntu1"
     f.update_stack(stackName)
     # f.test("VM_of_Orchestration_test","Update")
     # f.test2("Update")

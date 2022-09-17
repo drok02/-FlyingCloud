@@ -1,5 +1,5 @@
 {
-    "stack_name": "ubuntu1",
+    "stack_name": "ubuntu1_create_snapshot",
     "template": {
         "heat_template_version": "2018-08-31",
         "description": "This template demonstrates the different ways configuration resources can be used to specify boot-time cloud-init configuration.",
@@ -21,12 +21,9 @@
             "mybox": {
                 "type": "OS::Nova::Server",
                 "properties": {
-					"name": "server_0917",
+					"name": "server_0917_create_snapshot",
 					"flavor": {"get_param":"flavor"},
 					"image": {"get_param":"image"},
-					"key_name": {
-						"get_resource": "demo_key"
-					},
 					"networks": [
 						{
 							"port": {
@@ -48,13 +45,6 @@
 					}
 				}
 			},
-
-            "demo_key": {
-                "type": "OS::Nova::KeyPair",
-                "properties": {
-					"name": "testkey0917"
-                }
-            },
             "mybox_management_port": {
                 "type": "OS::Neutron::Port",
                 "properties": {
@@ -146,7 +136,7 @@
       "parameters":{
         "flavor" : "ds512M",
         "packages" : ["vim", "pwgen"],
-        "image" : "ubuntu"
+        "image" : "snapserver_0917_2"
     }
 
 }

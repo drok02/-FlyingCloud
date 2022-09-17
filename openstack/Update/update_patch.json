@@ -1,6 +1,6 @@
 {
     "parameters":{
-        "image":"snapshotimage",
+        "image":"snapserver_0917_2",
         "packages" : ["pwgen","libguestfs-tools", "apache2", "gedit"]
     }
 }
