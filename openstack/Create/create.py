@@ -1,8 +1,8 @@
 import json
 import requests
 
-address = "192.168.0.17"
-tenet_id = "23fa0c5c1b0347abab37f17e7030aa62"
+address = "211.197.83.186"
+tenet_id = "16aa441c434e4669a56f4ccde9c7a053"
 
 class AccountView():
  
@@ -88,10 +88,10 @@ class AccountView():
             with open('main.json','r') as f:
                 json_data=json.load(f)
         elif(system_num==2):
-            with open('createVol.json','r') as f:
+            with open('create4.json','r') as f:
                 json_data=json.load(f)
         elif(system_num==3):
-            with open('create3.json','r') as f:
+            with open('create_network.json','r') as f:
                 json_data=json.load(f)
         # json_data['stack_name']=stack_name
         # json_data['template']['resources']['demo_key']['properties']['name']=key_name

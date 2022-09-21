@@ -1,6 +1,5 @@
 {
-                                
-    "stack_name": "VE",
+    "stack_name": "server_0920_packageTest_management_net",
     "template": {
         "heat_template_version": "2018-08-31",
         "description": "This template demonstrates the different ways configuration resources can be used to specify boot-time cloud-init configuration.",
@@ -10,7 +9,7 @@
                 "type": "string"
             },
             "packages":{
-                "default" :["vim"],
+                "default" :[],
                 "type" : "comma_delimited_list"
             },
             "image":{
@@ -18,48 +17,45 @@
                 "type":"string"
             }
         },
-        "resources": {
+		"resources": {
             "mybox": {
                 "type": "OS::Nova::Server",
                 "properties": {
-                "name": "VM_of_Orchestration_test2",
-                "image": {"get_param": "image"},
-                "flavor": {"get_param":"flavor"},
-                "networks": [
-                    {
-                    "port": {
-                        "get_resource": "mybox_management_port"
-                    }
-                    }
-                ],
-                "user_data": {
-                    "get_resource": "myconfig"
-                },
-                "user_data_format": "RAW"
+					"name": "server_0920_packageTest_management_net",
+					"flavor": {"get_param":"flavor"},
+					"image": {"get_param":"image"},
+					"networks": [
+						{
+							"port": {
+								"get_resource": "mybox_management_port"
+							}
+						}
+					],
+					"user_data": {
+						"get_resource": "myconfig"
+					},
+					"user_data_format": "RAW"
                 }
             },
             "myconfig": {
                 "type": "OS::Heat::CloudConfig",
                 "properties": {
-                "cloud_config": {
-                    "packages": {"get_param" : "packages"}
-                }
-                }
-            },
+					"cloud_config": {
+						"packages": {"get_param" : "packages"}
+					}
+				}
+			},
             "mybox_management_port": {
                 "type": "OS::Neutron::Port",
                 "properties": {
-                "network_id": "9c6a5e04-a396-4ea3-8c6a-ead26990fbb6"
+					"network_id": "2d476eb6-f5f8-4632-80a7-b0ffe5337d3f"
                 }
             }
-            
         }
     },
-
-    "parameters":{
+      "parameters":{
         "flavor" : "ds512M",
-        "packages" : ["vim", "pwgen"],
-        "image" : "ubuntu"
+        "packages" : ["vim", "pwgen"]
     }
-    
+
 }
