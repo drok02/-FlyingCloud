@@ -287,7 +287,8 @@ class Template():
 
 
 
-# f=Template()
+f=Template()
+
 # f.regiTemplate(templatename,"https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img",ubuntu,zoneid)
 
 # f.getTemplateDownURL("1f522d2d-4ed3-4b11-86a7-54bc2d63d4ff")

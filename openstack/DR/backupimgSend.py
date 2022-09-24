@@ -178,14 +178,14 @@ class AccountView():
         #     )
 
         # print("인스턴스로부터 생성한 이미지 삭제 ",user_res)    
-    def downimage(self,imageName,url):
+    def downimage(self,imageName):
         
         admin_token=self.token()
         # user_res = requests.get("http://"+address+"/image/v2/images/"+url+"/file",
         #     headers = {'X-Auth-Token' : admin_token})
-        user_res = requests.get("http://"+address+"/image/v2/images/ab9f9ddf-4df5-4507-a5f5-6def8f3ad7c1/file",
+        user_res = requests.get("http://"+address+"/image/v2/images/c37dbe6a-825e-48ba-9d24-7de0137ccd9d/file",
             headers = {'X-Auth-Token' : admin_token})
-        file= open('C:/Users/PC/Desktop/os_image/backup/'+imageName+'.qcow2','wb')
+        file= open('/Users/ibonghun/Developer/'+imageName+'.qcow2','wb')
         file.write(user_res.content)
         file.close()
         print("image file download response is",user_res)
@@ -196,7 +196,7 @@ def main():
     # f.create_img_from_server("test","image_test")
     # admin_token = f.token()
     # user_res = requests.get("http://192.168.0.118/image/v2/images/f1adcd57-0edf-47df-afc0-b253a82af441/file?X-Auth-Token="+admin_token
-        
+    f.downimage("Backup 7cdf98de-efb5-49fa-b2db-b8a3a7179757")
     # )
     # print("image file response is : \n ",user_res)  
     # f.downimage("ab9f9ddf-4df5-4507-a5f5-6def8f3ad7c1","backup0903")
